@@ -8,6 +8,3 @@ build_project:
     - xcodebuild test -project EcoTravel.xcodeproj -scheme EcoTravel -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.4' | xcpretty -s
   tags:
     - Tuomas
-    - Ashif
-    - Minji
-    - Sahar
