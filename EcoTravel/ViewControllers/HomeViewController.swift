@@ -17,7 +17,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        locationManager.delegate = self
+        startStopRequestAuthorization(manager: locationManager, status: locationManager.authorizationStatus)
+        
         mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(MKUserTrackingMode.follow, animated: true)
@@ -40,7 +41,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     func startLocationUpdates() {
         if CLLocationManager.locationServicesEnabled() {
             print("Location latitude: \(locationManager.location?.coordinate.latitude ?? 0.0)")
-            locationManager.distanceFilter = 100
+            locationManager.distanceFilter = 50
             locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
             locationManager.startUpdatingLocation()
         } else {
@@ -87,5 +88,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         print("User location updated")
+        mapView.setCenter(userLocation.coordinate, animated: true)
     }
 }
