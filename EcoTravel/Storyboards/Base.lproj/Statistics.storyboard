@@ -16,16 +16,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-j0-aaY">
-                                <rect key="frame" x="172" y="103" width="71" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDd-j0-aaY">
+                                <rect key="frame" x="140" y="144" width="134" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9k2-ly-kYe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="gDd-j0-aaY" firstAttribute="leading" secondItem="9k2-ly-kYe" secondAttribute="leading" constant="140" id="I84-Uu-6Lf"/>
+                            <constraint firstItem="gDd-j0-aaY" firstAttribute="top" secondItem="9k2-ly-kYe" secondAttribute="top" constant="100" id="fLB-gk-ZJO"/>
+                            <constraint firstItem="9k2-ly-kYe" firstAttribute="trailing" secondItem="gDd-j0-aaY" secondAttribute="trailing" constant="140" id="imf-aV-G58"/>
+                            <constraint firstItem="9k2-ly-kYe" firstAttribute="trailing" secondItem="gDd-j0-aaY" secondAttribute="trailing" constant="140" id="vSr-N0-0gk"/>
+                            <constraint firstItem="gDd-j0-aaY" firstAttribute="leading" secondItem="9k2-ly-kYe" secondAttribute="leading" constant="140" id="zKz-Uo-nfu"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Statistics" image="chart.bar.fill" catalog="system" id="0aj-6Y-gcO"/>
                 </viewController>
