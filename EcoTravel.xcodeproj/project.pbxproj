@@ -3,18 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		6A340F2126304E21007DBDFA /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A340F2026304E21007DBDFA /* RouteDetailViewController.swift */; };
-		6A340F2726305045007DBDFA /* ApolloCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6A340F2626305045007DBDFA /* ApolloCore */; };
-		6A340F2926305045007DBDFA /* ApolloSQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 6A340F2826305045007DBDFA /* ApolloSQLite */; };
-		6A340F2B26305045007DBDFA /* ApolloWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 6A340F2A26305045007DBDFA /* ApolloWebSocket */; };
-		6A340F2D26305045007DBDFA /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 6A340F2C26305045007DBDFA /* Apollo */; };
-		6A340F2F26305045007DBDFA /* Apollo-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 6A340F2E26305045007DBDFA /* Apollo-Dynamic */; };
-		6A340F3026305045007DBDFA /* Apollo-Dynamic in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 6A340F2E26305045007DBDFA /* Apollo-Dynamic */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		6A340F3226305045007DBDFA /* ApolloCodegenLib in Frameworks */ = {isa = PBXBuildFile; productRef = 6A340F3126305045007DBDFA /* ApolloCodegenLib */; };
 		6A87F7DA26287EE200B59ACC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7D926287EE200B59ACC /* AppDelegate.swift */; };
 		6A87F7DC26287EE200B59ACC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7DB26287EE200B59ACC /* SceneDelegate.swift */; };
 		6A87F7DE26287EE200B59ACC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7DD26287EE200B59ACC /* HomeViewController.swift */; };
@@ -60,7 +53,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6A340F3026305045007DBDFA /* Apollo-Dynamic in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -101,12 +93,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A340F2726305045007DBDFA /* ApolloCore in Frameworks */,
-				6A340F3226305045007DBDFA /* ApolloCodegenLib in Frameworks */,
-				6A340F2F26305045007DBDFA /* Apollo-Dynamic in Frameworks */,
-				6A340F2D26305045007DBDFA /* Apollo in Frameworks */,
-				6A340F2B26305045007DBDFA /* ApolloWebSocket in Frameworks */,
-				6A340F2926305045007DBDFA /* ApolloSQLite in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,12 +227,6 @@
 			);
 			name = EcoTravel;
 			packageProductDependencies = (
-				6A340F2626305045007DBDFA /* ApolloCore */,
-				6A340F2826305045007DBDFA /* ApolloSQLite */,
-				6A340F2A26305045007DBDFA /* ApolloWebSocket */,
-				6A340F2C26305045007DBDFA /* Apollo */,
-				6A340F2E26305045007DBDFA /* Apollo-Dynamic */,
-				6A340F3126305045007DBDFA /* ApolloCodegenLib */,
 			);
 			productName = EcoTravel;
 			productReference = 6A87F7D626287EE200B59ACC /* EcoTravel.app */;
@@ -320,7 +300,6 @@
 			);
 			mainGroup = 6A87F7CD26287EE200B59ACC;
 			packageReferences = (
-				6A340F2526305044007DBDFA /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = 6A87F7D726287EE200B59ACC /* Products */;
 			projectDirPath = "";
@@ -738,50 +717,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		6A340F2526305044007DBDFA /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.42.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		6A340F2626305045007DBDFA /* ApolloCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A340F2526305044007DBDFA /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloCore;
-		};
-		6A340F2826305045007DBDFA /* ApolloSQLite */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A340F2526305044007DBDFA /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloSQLite;
-		};
-		6A340F2A26305045007DBDFA /* ApolloWebSocket */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A340F2526305044007DBDFA /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloWebSocket;
-		};
-		6A340F2C26305045007DBDFA /* Apollo */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A340F2526305044007DBDFA /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = Apollo;
-		};
-		6A340F2E26305045007DBDFA /* Apollo-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A340F2526305044007DBDFA /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = "Apollo-Dynamic";
-		};
-		6A340F3126305045007DBDFA /* ApolloCodegenLib */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A340F2526305044007DBDFA /* XCRemoteSwiftPackageReference "apollo-ios" */;
-			productName = ApolloCodegenLib;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		6A87F7E226287EE200B59ACC /* EcoTravel.xcdatamodeld */ = {
