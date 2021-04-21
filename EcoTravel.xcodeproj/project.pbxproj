@@ -19,6 +19,7 @@
 		6A87F816262883C600B59ACC /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F815262883C600B59ACC /* StatisticsViewController.swift */; };
 		6A87F81E2628852500B59ACC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F81D2628852500B59ACC /* ProfileViewController.swift */; };
 		6A87F83D2628910A00B59ACC /* RouteSuggestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F83C2628910A00B59ACC /* RouteSuggestionsViewController.swift */; };
+		6ADA60542630254A0025C73E /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADA60532630254A0025C73E /* LocationSearchTable.swift */; };
 		6ADCE6642629C23C00F3B781 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6ADCE6622629C23C00F3B781 /* Home.storyboard */; };
 		6ADCE66A2629C2B300F3B781 /* Statistics.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6ADCE6682629C2B300F3B781 /* Statistics.storyboard */; };
 		6ADCE6702629C2D400F3B781 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6ADCE66E2629C2D400F3B781 /* Profile.storyboard */; };
@@ -63,6 +64,7 @@
 		6A87F815262883C600B59ACC /* StatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StatisticsViewController.swift; path = EcoTravel/ViewControllers/StatisticsViewController.swift; sourceTree = SOURCE_ROOT; };
 		6A87F81D2628852500B59ACC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		6A87F83C2628910A00B59ACC /* RouteSuggestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSuggestionsViewController.swift; sourceTree = "<group>"; };
+		6ADA60532630254A0025C73E /* LocationSearchTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		6ADCE6632629C23C00F3B781 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 		6ADCE6692629C2B300F3B781 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Statistics.storyboard; sourceTree = "<group>"; };
 		6ADCE66F2629C2D400F3B781 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 		6A87F8102628812400B59ACC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				6ADA60532630254A0025C73E /* LocationSearchTable.swift */,
 				6A87F7DD26287EE200B59ACC /* HomeViewController.swift */,
 				6A87F815262883C600B59ACC /* StatisticsViewController.swift */,
 				6A87F81D2628852500B59ACC /* ProfileViewController.swift */,
@@ -325,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A87F81E2628852500B59ACC /* ProfileViewController.swift in Sources */,
+				6ADA60542630254A0025C73E /* LocationSearchTable.swift in Sources */,
 				6A87F7DE26287EE200B59ACC /* HomeViewController.swift in Sources */,
 				6A87F816262883C600B59ACC /* StatisticsViewController.swift in Sources */,
 				6A87F7DA26287EE200B59ACC /* AppDelegate.swift in Sources */,
