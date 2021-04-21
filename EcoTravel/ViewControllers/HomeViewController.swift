@@ -8,17 +8,41 @@
 import UIKit
 import MapKit
 
-class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+protocol HandleMapSearch {
+    func dropPinZoomIn(placemark: MKPlacemark)
+}
 
+class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+    
     @IBOutlet weak var mapView: MKMapView!
     
     let locationManager = CLLocationManager()
+    var resultSearchController:UISearchController? = nil
+    var selectedPin: MKPlacemark? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Search functionality initialization
+        let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "locationSearchTable") as! LocationSearchTable
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable
+        
+        let searchBar = resultSearchController!.searchBar
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Search for places"
+        navigationItem.searchController = resultSearchController
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        definesPresentationContext = true
+        
+        locationSearchTable.mapView = mapView
+        locationSearchTable.handleMapSearchDelegate = self
+        
+        // Request authorization for location
         startStopRequestAuthorization(manager: locationManager, status: locationManager.authorizationStatus)
         
+        // Map view initialization
         mapView.delegate = self
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(MKUserTrackingMode.follow, animated: true)
@@ -26,16 +50,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         let location = CLLocation(latitude: 60.16, longitude: 24.93)
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
         mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-          super.viewWillDisappear(animated)
-          self.navigationController?.navigationBar.isHidden = false
     }
     
     func startLocationUpdates() {
@@ -76,7 +90,6 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("Location did update: \(locations)")
-        mapView.setCenter(locations[0].coordinate, animated: true)
     }
     
     // MARK: - Map view delegate
@@ -89,5 +102,27 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         print("User location updated")
         mapView.setCenter(userLocation.coordinate, animated: true)
+    }
+}
+
+// Extension for HandleMapSearch protocol function
+extension HomeViewController: HandleMapSearch {
+    
+    func dropPinZoomIn(placemark: MKPlacemark) {
+        // cache the pin
+        selectedPin = placemark
+        // clear existing pins
+        mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.name
+        if let city = placemark.locality,
+           let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) \(state)"
+        }
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
 }
