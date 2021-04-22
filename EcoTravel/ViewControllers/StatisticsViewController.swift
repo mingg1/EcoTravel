@@ -51,13 +51,12 @@ class StatisticsViewController: UIViewController, ChartViewDelegate {
         
         view.addSubview(pieChart)
         
-        
         //      var entries = [walkingData, cyclingData, carData, transportData]
         
         
-     /*   for item in 0...numberOfDownloadDataEntries.count-1 {
-            numberOfDownloadDataEntries.append(PieChartDataEntry (value: Double(item)))
-        }*/
+        /*   for item in 0...numberOfDownloadDataEntries.count-1 {
+         numberOfDownloadDataEntries.append(PieChartDataEntry (value: Double(item)))
+         }*/
         
         let set = PieChartDataSet(entries: numberOfDownloadDataEntries)
         set.colors = ChartColorTemplates.colorful()
@@ -65,6 +64,4 @@ class StatisticsViewController: UIViewController, ChartViewDelegate {
         pieChart.data = data
         
     }
-    
-    
 }
