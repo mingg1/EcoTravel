@@ -1,6 +1,9 @@
 stages:
   - build
 
+variables:
+  LC_ALL: "en_US.UTF-8" # apparently xcpretty won't function correctly otherwise
+
 build_project:
   stage: build
   script:
