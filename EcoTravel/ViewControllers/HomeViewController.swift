@@ -19,6 +19,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     let locationManager = CLLocationManager()
     var resultSearchController:UISearchController? = nil
     var selectedPin: MKPlacemark? = nil
+    var searchedLocationDisplayed = false
+    var currentLocationButton: UIButton? = nil
+    var routeSuggestionsButton: UIButton? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +53,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         let location = CLLocation(latitude: 60.16, longitude: 24.93)
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
         mapView.setRegion(coordinateRegion, animated: true)
+        
+        createCurrentLocationButton()
+        createRouteSuggestionsButton()
     }
     
     func startLocationUpdates() {
@@ -94,14 +100,99 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     // MARK: - Map view delegate
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         print("User location updated")
-        mapView.setCenter(userLocation.coordinate, animated: true)
+        if(!searchedLocationDisplayed) {
+            mapView.setCenter(userLocation.coordinate, animated: true)
+        }
+    }
+    
+    // MARK: - Current location button functions
+    
+    func createCurrentLocationButton() {
+        currentLocationButton = UIButton(type: UIButton.ButtonType.system)
+        
+        guard let currentLocationButton = currentLocationButton else {
+            fatalError("Current location button does not exist")
+        }
+        
+        currentLocationButton.backgroundColor = UIColor.systemBlue
+        currentLocationButton.setTitle("Current location", for: UIControl.State.normal)
+        currentLocationButton.tintColor = UIColor.white
+        currentLocationButton.addTarget(self, action: #selector(self.currentLocationButtonTapped), for: .touchUpInside)
+        
+        mapView.addSubview(currentLocationButton)
+        
+        currentLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            currentLocationButton.widthAnchor.constraint(equalToConstant: 130),
+            currentLocationButton.heightAnchor.constraint(equalToConstant: 30),
+            currentLocationButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -20),
+            currentLocationButton.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 20)
+        ])
+    }
+    
+    @objc func currentLocationButtonTapped(_ sender: UIButton!) {
+        if let currentLocation = locationManager.location?.coordinate {
+            let coordinateRegion = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 5000, longitudinalMeters: 5000)
+            mapView.setRegion(coordinateRegion, animated: true)
+            
+            if(searchedLocationDisplayed) {
+                routeSuggestionsButton?.removeFromSuperview()
+                mapView.removeAnnotations(mapView.annotations)
+            }
+            
+            searchedLocationDisplayed = false
+        } else {
+            print("Current location not available")
+        }
+    }
+    
+    // MARK: - Route suggestions button functions
+    
+    func createRouteSuggestionsButton() {
+        routeSuggestionsButton = UIButton(type: UIButton.ButtonType.system)
+        
+        guard let routeSuggestionsButton = routeSuggestionsButton else {
+            fatalError("Route suggestions button does not exist")
+        }
+        
+        routeSuggestionsButton.backgroundColor = UIColor.systemGreen
+        routeSuggestionsButton.setTitle("Route Suggestions", for: UIControl.State.normal)
+        routeSuggestionsButton.tintColor = UIColor.white
+        routeSuggestionsButton.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        routeSuggestionsButton.addTarget(self, action: #selector(self.routeSuggestionsButtonTapped), for: .touchUpInside)
+    }
+    
+    func displayRouteSuggestionsButton() {
+        if let routeSuggestionsButton = routeSuggestionsButton {
+            mapView.addSubview(routeSuggestionsButton)
+            
+            routeSuggestionsButton.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                routeSuggestionsButton.heightAnchor.constraint(equalToConstant: 50),
+                routeSuggestionsButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 100),
+                routeSuggestionsButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -100),
+                routeSuggestionsButton.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -50)
+            ])
+        }
+    }
+    
+    @objc func routeSuggestionsButtonTapped(_ sender: UIButton!) {
+        performSegue(withIdentifier: "toRouteSuggestions", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let routeSuggestionsVC = segue.destination as? RouteSuggestionsViewController {
+            
+            if let originCoordinate = locationManager.location?.coordinate {
+                routeSuggestionsVC.origin = CLLocationCoordinate2D(latitude: originCoordinate.latitude, longitude: originCoordinate.longitude)
+            }
+            
+            if let destinationCoordinate = selectedPin?.coordinate {
+                routeSuggestionsVC.destination = CLLocationCoordinate2D(latitude: destinationCoordinate.latitude, longitude: destinationCoordinate.longitude)
+            }
+        }
     }
 }
 
@@ -109,6 +200,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
 extension HomeViewController: HandleMapSearch {
     
     func dropPinZoomIn(placemark: MKPlacemark) {
+        searchedLocationDisplayed = true
+        displayRouteSuggestionsButton()
+        
         // cache the pin
         selectedPin = placemark
         // clear existing pins

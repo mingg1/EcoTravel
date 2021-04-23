@@ -14,9 +14,9 @@ class RouteSuggestionsViewController: UIViewController, MKMapViewDelegate, UITab
     @IBOutlet weak var mapView: MKMapView!
     
     // Kamppi
-    let origin = CLLocationCoordinate2D(latitude: 60.168992, longitude: 24.932366)
+    var origin = CLLocationCoordinate2D(latitude: 60.168992, longitude: 24.932366)
     // Kaivopuisto
-    let destination = CLLocationCoordinate2D(latitude: 60.15638994476689, longitude: 24.9572360295062)
+    var destination = CLLocationCoordinate2D(latitude: 60.15638994476689, longitude: 24.9572360295062)
     
     override func viewDidLoad() {
         super.viewDidLoad()
