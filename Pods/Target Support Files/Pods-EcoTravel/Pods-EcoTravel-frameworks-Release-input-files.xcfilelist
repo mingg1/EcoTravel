@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-EcoTravel/Pods-EcoTravel-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework
 ${BUILT_PRODUCTS_DIR}/Charts/Charts.framework

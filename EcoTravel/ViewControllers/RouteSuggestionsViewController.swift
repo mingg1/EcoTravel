@@ -20,6 +20,14 @@ class RouteSuggestionsViewController: UIViewController, MKMapViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        Network.shared.apollo.fetch(query: FindRoutesQuery()) { result in
+            switch result {
+            case .success(let receivedResult):
+                print (receivedResult.data?.plan)
+            case.failure(let error):
+                print (error)
+            }
+        }
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         mapView.delegate = self
         tableView.delegate = self

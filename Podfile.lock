@@ -1,18 +1,24 @@
 PODS:
+  - Apollo (0.42.0):
+    - Apollo/Core (= 0.42.0)
+  - Apollo/Core (0.42.0)
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
 
 DEPENDENCIES:
+  - Apollo
   - Charts
 
 SPEC REPOS:
   trunk:
+    - Apollo
     - Charts
 
 SPEC CHECKSUMS:
+  Apollo: c3f1cc3bfb36e1c4bbb642f44184ad759ad42a87
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
 
-PODFILE CHECKSUM: 64d749fbf9892339b88a2c2de4d82829e50b9a69
+PODFILE CHECKSUM: 110011c4210ea62f20a9feb2cbf02d40d4cd1c46
 
 COCOAPODS: 1.10.1
