@@ -3,11 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		6A340F2126304E21007DBDFA /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A340F2026304E21007DBDFA /* RouteDetailViewController.swift */; };
+		6A58F79D2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F79C2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework */; };
+		6A58F79E2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F79C2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A58F7A22636B49600AB6B69 /* AWSAPIGateway.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7A12636B49600AB6B69 /* AWSAPIGateway.xcframework */; };
+		6A58F7A32636B49600AB6B69 /* AWSAPIGateway.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7A12636B49600AB6B69 /* AWSAPIGateway.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A58F7A72636B4C300AB6B69 /* AWSAuthCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7A62636B4C300AB6B69 /* AWSAuthCore.xcframework */; };
+		6A58F7A82636B4C300AB6B69 /* AWSAuthCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7A62636B4C300AB6B69 /* AWSAuthCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A58F7AC2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7AB2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework */; };
+		6A58F7AD2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7AB2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A58F7B12636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7B02636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework */; };
+		6A58F7B22636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7B02636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A58F7B62636B51400AB6B69 /* AWSCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7B52636B51400AB6B69 /* AWSCore.xcframework */; };
+		6A58F7B72636B51400AB6B69 /* AWSCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7B52636B51400AB6B69 /* AWSCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A58F7BB2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7BA2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework */; };
+		6A58F7BC2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7BA2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6A58F7C02636B54E00AB6B69 /* AWSS3.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7BF2636B54E00AB6B69 /* AWSS3.xcframework */; };
+		6A58F7C12636B54E00AB6B69 /* AWSS3.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A58F7BF2636B54E00AB6B69 /* AWSS3.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6A87F7DA26287EE200B59ACC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7D926287EE200B59ACC /* AppDelegate.swift */; };
 		6A87F7DC26287EE200B59ACC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7DB26287EE200B59ACC /* SceneDelegate.swift */; };
 		6A87F7DE26287EE200B59ACC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7DD26287EE200B59ACC /* HomeViewController.swift */; };
@@ -56,6 +72,14 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				6A58F7BC2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework in Embed Frameworks */,
+				6A58F7C12636B54E00AB6B69 /* AWSS3.xcframework in Embed Frameworks */,
+				6A58F7B22636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework in Embed Frameworks */,
+				6A58F7AD2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework in Embed Frameworks */,
+				6A58F7B72636B51400AB6B69 /* AWSCore.xcframework in Embed Frameworks */,
+				6A58F79E2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework in Embed Frameworks */,
+				6A58F7A32636B49600AB6B69 /* AWSAPIGateway.xcframework in Embed Frameworks */,
+				6A58F7A82636B4C300AB6B69 /* AWSAuthCore.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,8 +87,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6A340F2026304E21007DBDFA /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
 		07273ED493E1A28476ECE319 /* Pods-EcoTravel-EcoTravelUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcoTravel-EcoTravelUITests.release.xcconfig"; path = "Target Support Files/Pods-EcoTravel-EcoTravelUITests/Pods-EcoTravel-EcoTravelUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6A340F2026304E21007DBDFA /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
+		6A58F79C2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MOPRIMTmdSdk.xcframework; path = "../../../Downloads/TMD SDK v0.5.3.1/MOPRIMTmdSdk.xcframework"; sourceTree = "<group>"; };
+		6A58F7A12636B49600AB6B69 /* AWSAPIGateway.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSAPIGateway.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSAPIGateway.xcframework"; sourceTree = "<group>"; };
+		6A58F7A62636B4C300AB6B69 /* AWSAuthCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSAuthCore.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSAuthCore.xcframework"; sourceTree = "<group>"; };
+		6A58F7AB2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSCognitoIdentityProvider.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSCognitoIdentityProvider.xcframework"; sourceTree = "<group>"; };
+		6A58F7B02636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSCognitoIdentityProviderASF.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSCognitoIdentityProviderASF.xcframework"; sourceTree = "<group>"; };
+		6A58F7B52636B51400AB6B69 /* AWSCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSCore.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSCore.xcframework"; sourceTree = "<group>"; };
+		6A58F7BA2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSMobileClientXCF.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSMobileClientXCF.xcframework"; sourceTree = "<group>"; };
+		6A58F7BF2636B54E00AB6B69 /* AWSS3.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSS3.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSS3.xcframework"; sourceTree = "<group>"; };
 		6A87F7D626287EE200B59ACC /* EcoTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcoTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A87F7D926287EE200B59ACC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A87F7DB26287EE200B59ACC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,7 +137,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A58F7BB2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework in Frameworks */,
+				6A58F7A72636B4C300AB6B69 /* AWSAuthCore.xcframework in Frameworks */,
+				6A58F79D2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework in Frameworks */,
 				BB093E25FD53BAAA687B7558 /* Pods_EcoTravel.framework in Frameworks */,
+				6A58F7B12636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework in Frameworks */,
+				6A58F7A22636B49600AB6B69 /* AWSAPIGateway.xcframework in Frameworks */,
+				6A58F7AC2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework in Frameworks */,
+				6A58F7C02636B54E00AB6B69 /* AWSS3.xcframework in Frameworks */,
+				6A58F7B62636B51400AB6B69 /* AWSCore.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +171,14 @@
 		38836A2490DAA37664CC023F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A58F7BF2636B54E00AB6B69 /* AWSS3.xcframework */,
+				6A58F7BA2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework */,
+				6A58F7B52636B51400AB6B69 /* AWSCore.xcframework */,
+				6A58F7B02636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework */,
+				6A58F7AB2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework */,
+				6A58F7A62636B4C300AB6B69 /* AWSAuthCore.xcframework */,
+				6A58F7A12636B49600AB6B69 /* AWSAPIGateway.xcframework */,
+				6A58F79C2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework */,
 				B97FD8DAC37142157F51BC14 /* Pods_EcoTravel.framework */,
 				AF7148DA338D16297293B019 /* Pods_EcoTravel_EcoTravelUITests.framework */,
 				EC61BD84D9C910010FDC6957 /* Pods_EcoTravelTests.framework */,
@@ -246,7 +294,6 @@
 				883CE879B358E112BC4AD06B /* Pods-EcoTravelTests.debug.xcconfig */,
 				C6998AE1703B6DC7AE713CD1 /* Pods-EcoTravelTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -262,7 +309,7 @@
 				6A87F7D326287EE200B59ACC /* Frameworks */,
 				6A87F7D426287EE200B59ACC /* Resources */,
 				6A340F3326305045007DBDFA /* Embed Frameworks */,
-                52822DF0BBA2B14086543486 /* [CP] Embed Pods Frameworks */,
+				52822DF0BBA2B14086543486 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
