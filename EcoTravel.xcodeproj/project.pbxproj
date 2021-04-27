@@ -89,14 +89,6 @@
 /* Begin PBXFileReference section */
 		07273ED493E1A28476ECE319 /* Pods-EcoTravel-EcoTravelUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcoTravel-EcoTravelUITests.release.xcconfig"; path = "Target Support Files/Pods-EcoTravel-EcoTravelUITests/Pods-EcoTravel-EcoTravelUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6A340F2026304E21007DBDFA /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
-		6A58F79C2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MOPRIMTmdSdk.xcframework; path = "../../../Downloads/TMD SDK v0.5.3.1/MOPRIMTmdSdk.xcframework"; sourceTree = "<group>"; };
-		6A58F7A12636B49600AB6B69 /* AWSAPIGateway.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSAPIGateway.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSAPIGateway.xcframework"; sourceTree = "<group>"; };
-		6A58F7A62636B4C300AB6B69 /* AWSAuthCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSAuthCore.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSAuthCore.xcframework"; sourceTree = "<group>"; };
-		6A58F7AB2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSCognitoIdentityProvider.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSCognitoIdentityProvider.xcframework"; sourceTree = "<group>"; };
-		6A58F7B02636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSCognitoIdentityProviderASF.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSCognitoIdentityProviderASF.xcframework"; sourceTree = "<group>"; };
-		6A58F7B52636B51400AB6B69 /* AWSCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSCore.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSCore.xcframework"; sourceTree = "<group>"; };
-		6A58F7BA2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSMobileClientXCF.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSMobileClientXCF.xcframework"; sourceTree = "<group>"; };
-		6A58F7BF2636B54E00AB6B69 /* AWSS3.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AWSS3.xcframework; path = "../../../Downloads/aws-ios-sdk-2.22.1/frameworks/AWSS3.xcframework"; sourceTree = "<group>"; };
 		6A87F7D626287EE200B59ACC /* EcoTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcoTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A87F7D926287EE200B59ACC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A87F7DB26287EE200B59ACC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -187,14 +179,6 @@
 				6ADAE08C2637E672007F3919 /* AWSAuthCore.xcframework */,
 				6ADAE0872637E66E007F3919 /* AWSAPIGateway.xcframework */,
 				6ADAE0812637E64E007F3919 /* MOPRIMTmdSdk.xcframework */,
-				6A58F7BF2636B54E00AB6B69 /* AWSS3.xcframework */,
-				6A58F7BA2636B52F00AB6B69 /* AWSMobileClientXCF.xcframework */,
-				6A58F7B52636B51400AB6B69 /* AWSCore.xcframework */,
-				6A58F7B02636B4FF00AB6B69 /* AWSCognitoIdentityProviderASF.xcframework */,
-				6A58F7AB2636B4E700AB6B69 /* AWSCognitoIdentityProvider.xcframework */,
-				6A58F7A62636B4C300AB6B69 /* AWSAuthCore.xcframework */,
-				6A58F7A12636B49600AB6B69 /* AWSAPIGateway.xcframework */,
-				6A58F79C2636B3F500AB6B69 /* MOPRIMTmdSdk.xcframework */,
 				B97FD8DAC37142157F51BC14 /* Pods_EcoTravel.framework */,
 				AF7148DA338D16297293B019 /* Pods_EcoTravel_EcoTravelUITests.framework */,
 				EC61BD84D9C910010FDC6957 /* Pods_EcoTravelTests.framework */,
