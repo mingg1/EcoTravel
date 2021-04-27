@@ -40,7 +40,7 @@ class StatisticsViewController: UIViewController, ChartViewDelegate {
         
         fetchStats()
         fetchMovementData()
-        createSyntheticData()
+        // createSyntheticData()
     }
     
     func fetchStats() {
