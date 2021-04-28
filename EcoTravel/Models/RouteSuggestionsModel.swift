@@ -20,7 +20,7 @@ struct Legs: Codable {
     var endTime: String
     var from: Place
     var to: Place
-    var trip: Trip?
+    var trip: Trips?
     var legGeometry: LegGeometry
 }
 
@@ -36,7 +36,7 @@ struct Stop: Codable {
     var name: String
 }
 
-struct Trip: Codable {
+struct Trips: Codable {
     var tripHeadsign: String
     var routeShortName: String
 }
