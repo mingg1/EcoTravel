@@ -7,6 +7,9 @@
 
 import UIKit
 import MapKit
+import MOPRIMTmdSdk
+import CoreLocation
+import CoreMotion
 
 protocol HandleMapSearch {
     func dropPinZoomIn(placemark: MKPlacemark)
@@ -17,6 +20,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     @IBOutlet weak var mapView: MKMapView!
     
     let locationManager = CLLocationManager()
+    let motionActivityManager = CMMotionActivityManager()
     var resultSearchController:UISearchController? = nil
     var selectedPin: MKPlacemark? = nil
     var searchedLocationDisplayed = false
@@ -45,6 +49,9 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         // Request authorization for location
         startStopRequestAuthorization(manager: locationManager, status: locationManager.authorizationStatus)
         
+        // Request permissions for motion
+        askMotionPermissions()
+        
         // Map view initialization
         mapView.delegate = self
         mapView.showsUserLocation = true
@@ -56,6 +63,8 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         
         createCurrentLocationButton()
         createRouteSuggestionsButton()
+        
+        TMD.start()
     }
     
     func startLocationUpdates() {
@@ -73,12 +82,23 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         startStopRequestAuthorization(manager: manager, status: manager.authorizationStatus)
+        
+        if #available(iOS 14.0, *) {
+            let preciseLocationAuthorized = (manager.accuracyAuthorization == .fullAccuracy)
+            if preciseLocationAuthorized == false {
+                manager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "tmd.AccurateLocationPurpose")
+                // Note that this will only ask for TEMPORARY precise location.
+                // You should make sure to ask your user to keep the Precise Location turned on in the Settings.
+            }
+        } else {
+            // No need to ask for precise location before iOS 14
+        }
     }
     
     func startStopRequestAuthorization(manager: CLLocationManager, status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:
-            manager.requestWhenInUseAuthorization()
+            manager.requestAlwaysAuthorization()
             
         case .restricted, .denied:
             manager.stopUpdatingLocation()
@@ -96,6 +116,15 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("Location did update: \(locations)")
+    }
+    
+    func askMotionPermissions() {
+        if CMMotionActivityManager.isActivityAvailable() {
+            self.motionActivityManager.startActivityUpdates(to: OperationQueue.main) { (motion) in
+                print("received motion activity")
+                self.motionActivityManager.stopActivityUpdates()
+            }
+        }
     }
     
     // MARK: - Map view delegate
