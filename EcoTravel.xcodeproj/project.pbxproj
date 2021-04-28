@@ -16,10 +16,10 @@
 		6A46E4E026338B3B0073329B /* routeFinderQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6A46E4DF26338B3B0073329B /* routeFinderQuery.graphql */; };
 		6A46E4E82635A3D80073329B /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A46E4E72635A3D80073329B /* schema.json */; };
 		6A46E4EE2635A4A20073329B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A46E4ED2635A4A20073329B /* API.swift */; };
-		6A46E4F626370D0E0073329B /* RouteSuggestionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A46E4F526370D0E0073329B /* RouteSuggestionsModel.swift */; };
 		6A46E4FD263751BD0073329B /* ItineraryTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A46E4FB263751BD0073329B /* ItineraryTableCell.swift */; };
 		6A46E4FE263751BD0073329B /* ItineraryTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A46E4FC263751BD0073329B /* ItineraryTableCell.xib */; };
-		6A46E50A2638C05E0073329B /* RouteSuggestionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A46E5092638C05E0073329B /* RouteSuggestionsManager.swift */; };
+		6A46E57D263A15D60073329B /* RouteSuggestionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A46E57C263A15D60073329B /* RouteSuggestionsModel.swift */; };
+		6A46E581263A15E40073329B /* RouteSuggestionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A46E580263A15E40073329B /* RouteSuggestionsManager.swift */; };
 		6A87F7DA26287EE200B59ACC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7D926287EE200B59ACC /* AppDelegate.swift */; };
 		6A87F7DC26287EE200B59ACC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7DB26287EE200B59ACC /* SceneDelegate.swift */; };
 		6A87F7DE26287EE200B59ACC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7DD26287EE200B59ACC /* HomeViewController.swift */; };
@@ -116,6 +116,8 @@
 		6A46E4FB263751BD0073329B /* ItineraryTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItineraryTableCell.swift; sourceTree = "<group>"; };
 		6A46E4FC263751BD0073329B /* ItineraryTableCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItineraryTableCell.xib; sourceTree = "<group>"; };
 		6A46E5092638C05E0073329B /* RouteSuggestionsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteSuggestionsManager.swift; sourceTree = "<group>"; };
+		6A46E57C263A15D60073329B /* RouteSuggestionsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteSuggestionsModel.swift; path = ../../../../backupfile/EcoTravel/Models/RouteSuggestionsModel.swift; sourceTree = "<group>"; };
+		6A46E580263A15E40073329B /* RouteSuggestionsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteSuggestionsManager.swift; path = ../../../../backupfile/EcoTravel/Models/RouteSuggestionsManager.swift; sourceTree = "<group>"; };
 		6A87F7D626287EE200B59ACC /* EcoTravel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EcoTravel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A87F7D926287EE200B59ACC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A87F7DB26287EE200B59ACC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -216,6 +218,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6A46E579263A14F60073329B /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				6A46E5092638C05E0073329B /* RouteSuggestionsManager.swift */,
+				6A46E4F526370D0E0073329B /* RouteSuggestionsModel.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		6A87F7CD26287EE200B59ACC = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +236,7 @@
 				6A87F7D726287EE200B59ACC /* Products */,
 				CB16B061533974439378E481 /* Pods */,
 				38836A2490DAA37664CC023F /* Frameworks */,
+				6A46E579263A14F60073329B /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -310,6 +322,8 @@
 			children = (
 				6A327AFB26399912004176CA /* StatisticCoreData+CoreDataClass.swift */,
 				6A327AFC26399912004176CA /* StatisticCoreData+CoreDataProperties.swift */,
+				6A46E57C263A15D60073329B /* RouteSuggestionsModel.swift */,
+				6A46E580263A15E40073329B /* RouteSuggestionsManager.swift */,
 				6A327AF72639950D004176CA /* Statistic.swift */,
 				6A8F87A626384D8D0008DF91 /* TripCoreData+CoreDataClass.swift */,
 				6A8F87A726384D8D0008DF91 /* TripCoreData+CoreDataProperties.swift */,
@@ -352,7 +366,6 @@
 				6A87F7D226287EE200B59ACC /* Sources */,
 				6A87F7D326287EE200B59ACC /* Frameworks */,
 				6A87F7D426287EE200B59ACC /* Resources */,
-				6A340F3326305045007DBDFA /* Embed Frameworks */,
 				52822DF0BBA2B14086543486 /* [CP] Embed Pods Frameworks */,
 				6ADAE0842637E64E007F3919 /* Embed Frameworks */,
 			);
@@ -606,7 +619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A46E50A2638C05E0073329B /* RouteSuggestionsManager.swift in Sources */,
+				6A46E581263A15E40073329B /* RouteSuggestionsManager.swift in Sources */,
 				6A46E4FD263751BD0073329B /* ItineraryTableCell.swift in Sources */,
 				6A327AF82639950D004176CA /* Statistic.swift in Sources */,
 				6A87F81E2628852500B59ACC /* ProfileViewController.swift in Sources */,
@@ -614,11 +627,11 @@
 				6A8F87A826384D8D0008DF91 /* TripCoreData+CoreDataClass.swift in Sources */,
 				6A87F7DE26287EE200B59ACC /* HomeViewController.swift in Sources */,
 				6A87F816262883C600B59ACC /* StatisticsViewController.swift in Sources */,
+				6A46E57D263A15D60073329B /* RouteSuggestionsModel.swift in Sources */,
 				6A87F7DA26287EE200B59ACC /* AppDelegate.swift in Sources */,
 				6ADCE67C2629C64E00F3B781 /* RouteAPI.swift in Sources */,
 				6A87F83D2628910A00B59ACC /* RouteSuggestionsViewController.swift in Sources */,
-				6ADCE6812629C67B00F3B781 /* PlaceholderModel.swift in Sources */,
-				6A46E4F626370D0E0073329B /* RouteSuggestionsModel.swift in Sources */,
+				6ADCE6812629C67B00F3B781 /* Trip.swift in Sources */,
 				6A327AF426395AAC004176CA /* TripsTableViewCell.swift in Sources */,
 				6ADCE6812629C67B00F3B781 /* Trip.swift in Sources */,
 				6A327AFD26399912004176CA /* StatisticCoreData+CoreDataClass.swift in Sources */,
