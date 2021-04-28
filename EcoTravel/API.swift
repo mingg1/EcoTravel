@@ -122,24 +122,56 @@ public final class FindRoutesQuery: GraphQLQuery {
   /// The raw GraphQL definition of this operation.
   public let operationDefinition: String =
     """
-    query findRoutes {
+    query findRoutes($originLat: Float!, $originLon: Float!, $destLat: Float!, $destLon: Float!) {
       plan(
-        from: {lat: 60.168992, lon: 24.932366}
-        to: {lat: 60.175294, lon: 24.684855}
-        numItineraries: 3
+        from: {lat: $originLat, lon: $originLon}
+        to: {lat: $destLat, lon: $destLon}
+        numItineraries: 10
+        transportModes: [{mode: TRANSIT}, {mode: WALK}, {mode: BICYCLE}]
       ) {
         __typename
         itineraries {
           __typename
+          walkDistance
+          duration
           legs {
             __typename
+            distance
+            mode
             startTime
             endTime
-            mode
-            duration
-            realTime
-            distance
-            transitLeg
+            from {
+              __typename
+              lat
+              lon
+              name
+              stop {
+                __typename
+                code
+                name
+              }
+            }
+            to {
+              __typename
+              lat
+              lon
+              name
+              stop {
+                __typename
+                code
+                name
+              }
+            }
+            trip {
+              __typename
+              tripHeadsign
+              routeShortName
+            }
+            legGeometry {
+              __typename
+              length
+              points
+            }
           }
         }
       }
@@ -148,7 +180,20 @@ public final class FindRoutesQuery: GraphQLQuery {
 
   public let operationName: String = "findRoutes"
 
-  public init() {
+  public var originLat: Double
+  public var originLon: Double
+  public var destLat: Double
+  public var destLon: Double
+
+  public init(originLat: Double, originLon: Double, destLat: Double, destLon: Double) {
+    self.originLat = originLat
+    self.originLon = originLon
+    self.destLat = destLat
+    self.destLon = destLon
+  }
+
+  public var variables: GraphQLMap? {
+    return ["originLat": originLat, "originLon": originLon, "destLat": destLat, "destLon": destLon]
   }
 
   public struct Data: GraphQLSelectionSet {
@@ -156,7 +201,7 @@ public final class FindRoutesQuery: GraphQLQuery {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("plan", arguments: ["from": ["lat": 60.168992, "lon": 24.932366], "to": ["lat": 60.175294, "lon": 24.684855], "numItineraries": 3], type: .object(Plan.selections)),
+        GraphQLField("plan", arguments: ["from": ["lat": GraphQLVariable("originLat"), "lon": GraphQLVariable("originLon")], "to": ["lat": GraphQLVariable("destLat"), "lon": GraphQLVariable("destLon")], "numItineraries": 10, "transportModes": [["mode": "TRANSIT"], ["mode": "WALK"], ["mode": "BICYCLE"]]], type: .object(Plan.selections)),
       ]
     }
 
@@ -225,6 +270,8 @@ public final class FindRoutesQuery: GraphQLQuery {
         public static var selections: [GraphQLSelection] {
           return [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("walkDistance", type: .scalar(Double.self)),
+            GraphQLField("duration", type: .scalar(String.self)),
             GraphQLField("legs", type: .nonNull(.list(.object(Leg.selections)))),
           ]
         }
@@ -235,8 +282,8 @@ public final class FindRoutesQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(legs: [Leg?]) {
-          self.init(unsafeResultMap: ["__typename": "Itinerary", "legs": legs.map { (value: Leg?) -> ResultMap? in value.flatMap { (value: Leg) -> ResultMap in value.resultMap } }])
+        public init(walkDistance: Double? = nil, duration: String? = nil, legs: [Leg?]) {
+          self.init(unsafeResultMap: ["__typename": "Itinerary", "walkDistance": walkDistance, "duration": duration, "legs": legs.map { (value: Leg?) -> ResultMap? in value.flatMap { (value: Leg) -> ResultMap in value.resultMap } }])
         }
 
         public var __typename: String {
@@ -245,6 +292,26 @@ public final class FindRoutesQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        /// How far the user has to walk, in meters.
+        public var walkDistance: Double? {
+          get {
+            return resultMap["walkDistance"] as? Double
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "walkDistance")
+          }
+        }
+
+        /// Duration of the trip on this itinerary, in seconds.
+        public var duration: String? {
+          get {
+            return resultMap["duration"] as? String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "duration")
           }
         }
 
@@ -264,13 +331,14 @@ public final class FindRoutesQuery: GraphQLQuery {
           public static var selections: [GraphQLSelection] {
             return [
               GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("distance", type: .scalar(Double.self)),
+              GraphQLField("mode", type: .scalar(Mode.self)),
               GraphQLField("startTime", type: .scalar(String.self)),
               GraphQLField("endTime", type: .scalar(String.self)),
-              GraphQLField("mode", type: .scalar(Mode.self)),
-              GraphQLField("duration", type: .scalar(Double.self)),
-              GraphQLField("realTime", type: .scalar(Bool.self)),
-              GraphQLField("distance", type: .scalar(Double.self)),
-              GraphQLField("transitLeg", type: .scalar(Bool.self)),
+              GraphQLField("from", type: .nonNull(.object(From.selections))),
+              GraphQLField("to", type: .nonNull(.object(To.selections))),
+              GraphQLField("trip", type: .object(Trip.selections)),
+              GraphQLField("legGeometry", type: .object(LegGeometry.selections)),
             ]
           }
 
@@ -280,8 +348,8 @@ public final class FindRoutesQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(startTime: String? = nil, endTime: String? = nil, mode: Mode? = nil, duration: Double? = nil, realTime: Bool? = nil, distance: Double? = nil, transitLeg: Bool? = nil) {
-            self.init(unsafeResultMap: ["__typename": "Leg", "startTime": startTime, "endTime": endTime, "mode": mode, "duration": duration, "realTime": realTime, "distance": distance, "transitLeg": transitLeg])
+          public init(distance: Double? = nil, mode: Mode? = nil, startTime: String? = nil, endTime: String? = nil, from: From, to: To, trip: Trip? = nil, legGeometry: LegGeometry? = nil) {
+            self.init(unsafeResultMap: ["__typename": "Leg", "distance": distance, "mode": mode, "startTime": startTime, "endTime": endTime, "from": from.resultMap, "to": to.resultMap, "trip": trip.flatMap { (value: Trip) -> ResultMap in value.resultMap }, "legGeometry": legGeometry.flatMap { (value: LegGeometry) -> ResultMap in value.resultMap }])
           }
 
           public var __typename: String {
@@ -290,6 +358,26 @@ public final class FindRoutesQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          /// The distance traveled while traversing the leg in meters.
+          public var distance: Double? {
+            get {
+              return resultMap["distance"] as? Double
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "distance")
+            }
+          }
+
+          /// The mode (e.g. `WALK`) used when traversing this leg.
+          public var mode: Mode? {
+            get {
+              return resultMap["mode"] as? Mode
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "mode")
             }
           }
 
@@ -313,53 +401,393 @@ public final class FindRoutesQuery: GraphQLQuery {
             }
           }
 
-          /// The mode (e.g. `WALK`) used when traversing this leg.
-          public var mode: Mode? {
+          /// The Place where the leg originates.
+          public var from: From {
             get {
-              return resultMap["mode"] as? Mode
+              return From(unsafeResultMap: resultMap["from"]! as! ResultMap)
             }
             set {
-              resultMap.updateValue(newValue, forKey: "mode")
+              resultMap.updateValue(newValue.resultMap, forKey: "from")
             }
           }
 
-          /// The leg's duration in seconds
-          public var duration: Double? {
+          /// The Place where the leg ends.
+          public var to: To {
             get {
-              return resultMap["duration"] as? Double
+              return To(unsafeResultMap: resultMap["to"]! as! ResultMap)
             }
             set {
-              resultMap.updateValue(newValue, forKey: "duration")
+              resultMap.updateValue(newValue.resultMap, forKey: "to")
             }
           }
 
-          /// Whether there is real-time data about this Leg
-          public var realTime: Bool? {
+          /// For transit legs, the trip that is used for traversing the leg. For non-transit legs, `null`.
+          public var trip: Trip? {
             get {
-              return resultMap["realTime"] as? Bool
+              return (resultMap["trip"] as? ResultMap).flatMap { Trip(unsafeResultMap: $0) }
             }
             set {
-              resultMap.updateValue(newValue, forKey: "realTime")
+              resultMap.updateValue(newValue?.resultMap, forKey: "trip")
             }
           }
 
-          /// The distance traveled while traversing the leg in meters.
-          public var distance: Double? {
+          /// The leg's geometry.
+          public var legGeometry: LegGeometry? {
             get {
-              return resultMap["distance"] as? Double
+              return (resultMap["legGeometry"] as? ResultMap).flatMap { LegGeometry(unsafeResultMap: $0) }
             }
             set {
-              resultMap.updateValue(newValue, forKey: "distance")
+              resultMap.updateValue(newValue?.resultMap, forKey: "legGeometry")
             }
           }
 
-          /// Whether this leg is a transit leg or not.
-          public var transitLeg: Bool? {
-            get {
-              return resultMap["transitLeg"] as? Bool
+          public struct From: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["Place"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("lat", type: .nonNull(.scalar(Double.self))),
+                GraphQLField("lon", type: .nonNull(.scalar(Double.self))),
+                GraphQLField("name", type: .scalar(String.self)),
+                GraphQLField("stop", type: .object(Stop.selections)),
+              ]
             }
-            set {
-              resultMap.updateValue(newValue, forKey: "transitLeg")
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(lat: Double, lon: Double, name: String? = nil, stop: Stop? = nil) {
+              self.init(unsafeResultMap: ["__typename": "Place", "lat": lat, "lon": lon, "name": name, "stop": stop.flatMap { (value: Stop) -> ResultMap in value.resultMap }])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// Latitude of the place (WGS 84)
+            public var lat: Double {
+              get {
+                return resultMap["lat"]! as! Double
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "lat")
+              }
+            }
+
+            /// Longitude of the place (WGS 84)
+            public var lon: Double {
+              get {
+                return resultMap["lon"]! as! Double
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "lon")
+              }
+            }
+
+            /// For transit stops, the name of the stop. For points of interest, the name of the POI.
+            public var name: String? {
+              get {
+                return resultMap["name"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "name")
+              }
+            }
+
+            /// The stop related to the place.
+            public var stop: Stop? {
+              get {
+                return (resultMap["stop"] as? ResultMap).flatMap { Stop(unsafeResultMap: $0) }
+              }
+              set {
+                resultMap.updateValue(newValue?.resultMap, forKey: "stop")
+              }
+            }
+
+            public struct Stop: GraphQLSelectionSet {
+              public static let possibleTypes: [String] = ["Stop"]
+
+              public static var selections: [GraphQLSelection] {
+                return [
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("code", type: .scalar(String.self)),
+                  GraphQLField("name", type: .nonNull(.scalar(String.self))),
+                ]
+              }
+
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public init(code: String? = nil, name: String) {
+                self.init(unsafeResultMap: ["__typename": "Stop", "code": code, "name": name])
+              }
+
+              public var __typename: String {
+                get {
+                  return resultMap["__typename"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// Stop code which is visible at the stop
+              public var code: String? {
+                get {
+                  return resultMap["code"] as? String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "code")
+                }
+              }
+
+              /// Name of the stop, e.g. Pasilan asema
+              public var name: String {
+                get {
+                  return resultMap["name"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "name")
+                }
+              }
+            }
+          }
+
+          public struct To: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["Place"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("lat", type: .nonNull(.scalar(Double.self))),
+                GraphQLField("lon", type: .nonNull(.scalar(Double.self))),
+                GraphQLField("name", type: .scalar(String.self)),
+                GraphQLField("stop", type: .object(Stop.selections)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(lat: Double, lon: Double, name: String? = nil, stop: Stop? = nil) {
+              self.init(unsafeResultMap: ["__typename": "Place", "lat": lat, "lon": lon, "name": name, "stop": stop.flatMap { (value: Stop) -> ResultMap in value.resultMap }])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// Latitude of the place (WGS 84)
+            public var lat: Double {
+              get {
+                return resultMap["lat"]! as! Double
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "lat")
+              }
+            }
+
+            /// Longitude of the place (WGS 84)
+            public var lon: Double {
+              get {
+                return resultMap["lon"]! as! Double
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "lon")
+              }
+            }
+
+            /// For transit stops, the name of the stop. For points of interest, the name of the POI.
+            public var name: String? {
+              get {
+                return resultMap["name"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "name")
+              }
+            }
+
+            /// The stop related to the place.
+            public var stop: Stop? {
+              get {
+                return (resultMap["stop"] as? ResultMap).flatMap { Stop(unsafeResultMap: $0) }
+              }
+              set {
+                resultMap.updateValue(newValue?.resultMap, forKey: "stop")
+              }
+            }
+
+            public struct Stop: GraphQLSelectionSet {
+              public static let possibleTypes: [String] = ["Stop"]
+
+              public static var selections: [GraphQLSelection] {
+                return [
+                  GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                  GraphQLField("code", type: .scalar(String.self)),
+                  GraphQLField("name", type: .nonNull(.scalar(String.self))),
+                ]
+              }
+
+              public private(set) var resultMap: ResultMap
+
+              public init(unsafeResultMap: ResultMap) {
+                self.resultMap = unsafeResultMap
+              }
+
+              public init(code: String? = nil, name: String) {
+                self.init(unsafeResultMap: ["__typename": "Stop", "code": code, "name": name])
+              }
+
+              public var __typename: String {
+                get {
+                  return resultMap["__typename"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "__typename")
+                }
+              }
+
+              /// Stop code which is visible at the stop
+              public var code: String? {
+                get {
+                  return resultMap["code"] as? String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "code")
+                }
+              }
+
+              /// Name of the stop, e.g. Pasilan asema
+              public var name: String {
+                get {
+                  return resultMap["name"]! as! String
+                }
+                set {
+                  resultMap.updateValue(newValue, forKey: "name")
+                }
+              }
+            }
+          }
+
+          public struct Trip: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["Trip"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("tripHeadsign", type: .scalar(String.self)),
+                GraphQLField("routeShortName", type: .scalar(String.self)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(tripHeadsign: String? = nil, routeShortName: String? = nil) {
+              self.init(unsafeResultMap: ["__typename": "Trip", "tripHeadsign": tripHeadsign, "routeShortName": routeShortName])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// Headsign of the vehicle when running on this trip
+            public var tripHeadsign: String? {
+              get {
+                return resultMap["tripHeadsign"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "tripHeadsign")
+              }
+            }
+
+            /// Short name of the route this trip is running. See field `shortName` of Route.
+            public var routeShortName: String? {
+              get {
+                return resultMap["routeShortName"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "routeShortName")
+              }
+            }
+          }
+
+          public struct LegGeometry: GraphQLSelectionSet {
+            public static let possibleTypes: [String] = ["Geometry"]
+
+            public static var selections: [GraphQLSelection] {
+              return [
+                GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+                GraphQLField("length", type: .scalar(Int.self)),
+                GraphQLField("points", type: .scalar(String.self)),
+              ]
+            }
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(length: Int? = nil, points: String? = nil) {
+              self.init(unsafeResultMap: ["__typename": "Geometry", "length": length, "points": points])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            /// The number of points in the string
+            public var length: Int? {
+              get {
+                return resultMap["length"] as? Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "length")
+              }
+            }
+
+            /// List of coordinates of in a Google encoded polyline format (see https://developers.google.com/maps/documentation/utilities/polylinealgorithm)
+            public var points: String? {
+              get {
+                return resultMap["points"] as? String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "points")
+              }
             }
           }
         }

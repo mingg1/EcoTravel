@@ -5,20 +5,24 @@ PODS:
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
+  - Polyline (5.0.2)
 
 DEPENDENCIES:
   - Apollo
   - Charts
+  - Polyline
 
 SPEC REPOS:
   trunk:
     - Apollo
     - Charts
+    - Polyline
 
 SPEC CHECKSUMS:
   Apollo: c3f1cc3bfb36e1c4bbb642f44184ad759ad42a87
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  Polyline: fce41d72e1146c41c6d081f7656827226f643dff
 
-PODFILE CHECKSUM: 110011c4210ea62f20a9feb2cbf02d40d4cd1c46
+PODFILE CHECKSUM: 2722afab660df09c9c0e083065bd4ec9b2147a2a
 
 COCOAPODS: 1.10.1

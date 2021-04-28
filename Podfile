@@ -7,6 +7,7 @@ target 'EcoTravel' do
 
 pod 'Charts'
 pod "Apollo"
+pod 'Polyline'
 
   # Pods for EcoTravel
 
