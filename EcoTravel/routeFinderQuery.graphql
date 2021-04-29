@@ -1,0 +1,45 @@
+query findRoutes($originLat: Float!, $originLon: Float!, $destLat: Float!, $destLon: Float!){
+  plan(
+    from: {lat: $originLat, lon: $originLon}
+    to: {lat: $destLat, lon: $destLon}
+    numItineraries: 10
+    transportModes: [{mode:TRANSIT},{mode:WALK},{mode:BICYCLE}]
+  ) {
+    itineraries {
+      walkDistance
+      duration
+      legs {
+        distance
+        mode
+        startTime
+        endTime
+        from {
+          lat
+          lon
+          name
+          stop {
+            code
+            name
+          }
+        }
+        to {
+          lat
+          lon
+          name
+          stop {
+            code
+            name
+          }
+        }
+        trip {
+            tripHeadsign
+          routeShortName
+        }
+        legGeometry {
+          length
+          points
+        }
+      }
+    }
+  }
+}

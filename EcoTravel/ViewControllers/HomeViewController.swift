@@ -221,6 +221,10 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             if let destinationCoordinate = selectedPin?.coordinate {
                 routeSuggestionsVC.destination = CLLocationCoordinate2D(latitude: destinationCoordinate.latitude, longitude: destinationCoordinate.longitude)
             }
+            
+            if let placeName = selectedPin?.name {
+                routeSuggestionsVC.destinationTitle = placeName
+            }
         }
     }
 }

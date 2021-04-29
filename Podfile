@@ -6,6 +6,8 @@ target 'EcoTravel' do
   use_frameworks!
 
 pod 'Charts'
+pod "Apollo"
+pod 'Polyline'
 
   # Pods for EcoTravel
 
