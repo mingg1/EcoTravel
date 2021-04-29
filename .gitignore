@@ -2,7 +2,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/swift
 # Edit at https://www.toptal.com/developers/gitignore?templates=swift
 
-**/.DS_Store
+.DS_Store
 
 ### Swift ###
 # Xcode
@@ -87,7 +87,5 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
-
-.DS_Store
 
 # End of https://www.toptal.com/developers/gitignore/api/swift
