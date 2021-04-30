@@ -5,6 +5,7 @@ variables:
   LC_ALL: "en_US.UTF-8" # apparently xcpretty won't function correctly otherwise
 
 before_script:
+  - pod deintegrate
   - pod install
 
 build_project:
