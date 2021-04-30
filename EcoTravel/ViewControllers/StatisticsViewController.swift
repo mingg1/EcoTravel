@@ -57,7 +57,7 @@ class StatisticsViewController: UIViewController, ChartViewDelegate {
         /*   for item in 0...numberOfDownloadDataEntries.count-1 {
          numberOfDownloadDataEntries.append(PieChartDataEntry (value: Double(item)))
          }*/
-        
+    
         let set = PieChartDataSet(entries: numberOfDownloadDataEntries)
         set.colors = ChartColorTemplates.colorful()
         let data = PieChartData(dataSet: set)
