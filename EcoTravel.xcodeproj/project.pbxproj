@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A4224A4803F5B6D5DE92B78 /* Pods_EcoTravelTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3415306C805967411F0B12 /* Pods_EcoTravelTests.framework */; };
+		6A2762CF263ED5D40069D77B /* TripsTableView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A2762CD263ED5D40069D77B /* TripsTableView.storyboard */; };
 		6A327AF02639587A004176CA /* TripsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A327AEF2639587A004176CA /* TripsTableViewController.swift */; };
 		6A327AF426395AAC004176CA /* TripsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A327AF326395AAC004176CA /* TripsTableViewCell.swift */; };
 		6A327AF82639950D004176CA /* Statistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A327AF72639950D004176CA /* Statistic.swift */; };
@@ -104,6 +105,7 @@
 /* Begin PBXFileReference section */
 		02EA931DE33268F98C4930C1 /* Pods_EcoTravel_EcoTravelUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EcoTravel_EcoTravelUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A21F6D772D0657F1D048BDF /* Pods-EcoTravelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EcoTravelTests.debug.xcconfig"; path = "Target Support Files/Pods-EcoTravelTests/Pods-EcoTravelTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6A2762CE263ED5D40069D77B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TripsTableView.storyboard; sourceTree = "<group>"; };
 		6A327AEF2639587A004176CA /* TripsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableViewController.swift; sourceTree = "<group>"; };
 		6A327AF326395AAC004176CA /* TripsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsTableViewCell.swift; sourceTree = "<group>"; };
 		6A327AF72639950D004176CA /* Statistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistic.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 		6A87F80F2628810F00B59ACC /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				6A2762CD263ED5D40069D77B /* TripsTableView.storyboard */,
 				6ADCE6742629C3E600F3B781 /* RouteSuggestions.storyboard */,
 				6ADCE66E2629C2D400F3B781 /* Profile.storyboard */,
 				6ADCE6682629C2B300F3B781 /* Statistics.storyboard */,
@@ -461,6 +464,7 @@
 				6ADCE66A2629C2B300F3B781 /* Statistics.storyboard in Resources */,
 				6A46E4E026338B3B0073329B /* routeFinderQuery.graphql in Resources */,
 				6A46E4FE263751BD0073329B /* ItineraryTableCell.xib in Resources */,
+				6A2762CF263ED5D40069D77B /* TripsTableView.storyboard in Resources */,
 				6ADCE6642629C23C00F3B781 /* Home.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -665,6 +669,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		6A2762CD263ED5D40069D77B /* TripsTableView.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A2762CE263ED5D40069D77B /* Base */,
+			);
+			name = TripsTableView.storyboard;
+			sourceTree = "<group>";
+		};
 		6A87F7DF26287EE200B59ACC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
