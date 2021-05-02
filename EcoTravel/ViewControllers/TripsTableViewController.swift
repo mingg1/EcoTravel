@@ -49,6 +49,10 @@ class TripsTableViewController: UITableViewController, NSFetchedResultsControlle
             fatalError("Trip not found from fetched results controller")
         }
         
+        cell.storyboard = storyboard
+        cell.navigationController = navigationController
+        cell.trip = trip
+        
         var correctActivity: String
         if(trip.correctedActivity != "") {
             correctActivity = trip.correctedActivity ?? "No activity"
@@ -90,6 +94,28 @@ class TripsTableViewController: UITableViewController, NSFetchedResultsControlle
             activityName = "Metro"
         case "motorized/air/plane":
             activityName = "Plane"
+        case "non-motorized/wheelchair":
+            activityName = "Wheelchair"
+        case "non-motorized/snow/cross-country-skiing":
+            activityName = "Cross-country-skiing"
+        case "motorized/road/kickscooter/electric":
+            activityName = "Electric kickscooter"
+        case "motorized/road/bicycle/electric":
+            activityName = "Electric bicycle"
+        case "motorized/road/car/electric":
+            activityName = "Electric car"
+        case "motorized/road/motorbike":
+            activityName = "Motorbike"
+        case "motorized/road/scooter":
+            activityName = "Scooter"
+        case "motorized/water/ferry":
+            activityName = "Ferry"
+        case "non-motorized/snow":
+            activityName = "Snow"
+        case "motorized/water":
+            activityName = "Water"
+        case "motorized/air":
+            activityName = "Air"
         default:
             activityName = "No activity"
         }
@@ -117,5 +143,9 @@ class TripsTableViewController: UITableViewController, NSFetchedResultsControlle
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("controllerDidChangeContent")
         tableView.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        FetchAndStoreData().fetchUsersTrips()
     }
 }

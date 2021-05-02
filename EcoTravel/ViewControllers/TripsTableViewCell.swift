@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import MOPRIMTmdSdk
 
 class TripsTableViewCell: UITableViewCell {
+    
+    var storyboard: UIStoryboard? = nil
+    var navigationController: UINavigationController? = nil
+    var trip: TripCoreData? = nil
 
     @IBOutlet weak var activityLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!
@@ -26,5 +31,11 @@ class TripsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    @IBAction func editButtonTapped(_ sender: UIButton) {
+        if let viewController = storyboard?.instantiateViewController(identifier: "editTripViewController") as? EditTripViewController {
+            viewController.trip = trip
+            navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
 }
