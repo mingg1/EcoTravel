@@ -10,16 +10,17 @@ import MOPRIMTmdSdk
 
 class TripsTableViewCell: UITableViewCell {
     
-    var storyboard: UIStoryboard? = nil
-    var navigationController: UINavigationController? = nil
-    var trip: TripCoreData? = nil
-
     @IBOutlet weak var activityLabel: UILabel!
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var co2Label: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
+    @IBOutlet weak var ecoRatingStackView: UIStackView!
+    
+    var storyboard: UIStoryboard?
+    var navigationController: UINavigationController?
+    var trip: TripCoreData?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,9 +34,9 @@ class TripsTableViewCell: UITableViewCell {
     }
     
     @IBAction func editButtonTapped(_ sender: UIButton) {
-        if let viewController = storyboard?.instantiateViewController(identifier: "editTripViewController") as? EditTripViewController {
-            viewController.trip = trip
-            navigationController?.pushViewController(viewController, animated: true)
+        if let editTripViewController = storyboard?.instantiateViewController(identifier: "editTripViewController") as? EditTripViewController {
+            editTripViewController.trip = trip
+            navigationController?.pushViewController(editTripViewController, animated: true)
         }
     }
 }

@@ -8,21 +8,46 @@
 import UIKit
 import MOPRIMTmdSdk
 
-class EditTripViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class EditTripViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
     @IBOutlet weak var activityPickerView: UIPickerView!
+    @IBOutlet weak var detailsTextView: UITextView!
     
-    var trip: TripCoreData? = nil
+    var trip: TripCoreData?
     let activityOptions = ["Stationary", "Bicycle", "Walk", "Run", "Car", "Bus", "Tram", "Train", "Metro", "Plane", "Wheelchair", "Cross-country-skiing", "Electric kickscooter", "Electric bicycle", "Electric car", "Motorbike", "Scooter", "Ferry"]
-    var selectedActivity = "Stationary"
+    var saveItem: UIBarButtonItem?
+    var doneItem: UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         activityPickerView.delegate = self
         activityPickerView.dataSource = self
+        detailsTextView.delegate = self
         
         self.navigationItem.title = "Edit trip"
+        
+        saveItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
+        if let saveItem = saveItem {
+            saveItem.style = .done
+        }
+        
+        doneItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+        
+        self.navigationItem.rightBarButtonItem = saveItem
+        
+        guard let trip = trip else {
+            fatalError("Trip value is nil")
+        }
+        
+        let activityName = TripPropertyConverter().convertFullActivityName(trip: trip)
+        
+        let currentActivityIndex = activityOptions.firstIndex(of: activityName)
+        if let currentActivityIndex = currentActivityIndex {
+            activityPickerView.selectRow(currentActivityIndex, inComponent: 0, animated: false)
+        }
+        
+        detailsTextView.text = trip.metadata
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -37,15 +62,11 @@ class EditTripViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
         return activityOptions[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedActivity = activityOptions[row]
-    }
-    
-    @IBAction func saveButtonTapped(_ sender: UIButton) {
+    @objc func saveButtonTapped(_ sender: UIButton) {
         sender.isEnabled = false
         
         var fullActivityName = ""
-        switch selectedActivity {
+        switch activityOptions[activityPickerView.selectedRow(inComponent: 0)] {
         case "Stationary":
             fullActivityName = "stationary"
         case "Bicycle":
@@ -86,6 +107,8 @@ class EditTripViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
             print("No activity name found")
         }
         
+        let activityDetails = detailsTextView.text ?? ""
+        
         let tripDate = Date(timeIntervalSince1970: Double(trip!.timestampStart) / 1000.0)
         
         TMDCloudApi.fetchData(tripDate, minutesOffset: 0).continueWith { (task) -> Any? in
@@ -105,26 +128,35 @@ class EditTripViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
                             tripActivity = fetchedTrip
                         }
                     }
-                    self.updateActivity(activity: tripActivity, newLabel: fullActivityName)
+                    self.updateActivityAndMetadata(activity: tripActivity, newLabel: fullActivityName, metadata: activityDetails)
                 }
             }
         }
     }
     
-    func updateActivity(activity: TMDActivity, newLabel: String) {
+    func updateActivityAndMetadata(activity: TMDActivity, newLabel: String, metadata: String) {
         
-        TMDCloudApi.correctActivity(activity, withLabel: newLabel).continueOnSuccessWith { (task) -> Any? in
+        TMDCloudApi.updateActivity(activity, withLabel: newLabel, withMetadata: metadata).continueOnSuccessWith { (task) -> Any? in
             DispatchQueue.main.async {
                 // Execute your UI related code on the main thread
                 if let error = task.error {
-                    NSLog("correctActivity Error: %@", error.localizedDescription)
+                    NSLog("annotateActivity Error: %@", error.localizedDescription)
                 }
                 else if let data = task.result {
-                    NSLog("correctActivity result: %@", data)
+                    NSLog("annotateActivity result: %@", data)
                     
                     self.navigationController?.popViewController(animated: true)
                 }
             }
         }
+    }
+    
+    @objc func doneButtonTapped() {
+        detailsTextView.resignFirstResponder()
+        navigationItem.rightBarButtonItem = saveItem
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.navigationItem.rightBarButtonItem = doneItem
     }
 }
