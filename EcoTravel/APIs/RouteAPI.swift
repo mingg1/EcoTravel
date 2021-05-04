@@ -6,13 +6,14 @@ protocol ItineraryManagerDelegate {
 }
 
 class ItineraryManager {
+    // GraphQL data endpoint
     private let endPoint = "https://api.digitransit.fi/routing/v1/routers/finland/index/graphql"
     
     lazy var apollo = ApolloClient(url: URL(string: endPoint)!)
     
     var itineraries = [Itineraries]()
     var delegate: ItineraryManagerDelegate?
-    
+
     func fetchItinerary(originLat:Double, originLon:Double, destLat:Double, destLon:Double){
         apollo.fetch(query: FindRoutesQuery(originLat: originLat, originLon: originLon, destLat: destLat, destLon: destLon)){
             result in
@@ -27,10 +28,9 @@ class ItineraryManager {
                         self.itineraries = itineraries
                         self.delegate?.didUpdateData(self, data: self.itineraries)
                     }catch let error{
-                        print(error)
+                        print("error: ",error)
                     }
                 }
-                
             case.failure(let error):
                 print ("error:",error)
             }

@@ -3,7 +3,6 @@ query findRoutes($originLat: Float!, $originLon: Float!, $destLat: Float!, $dest
     from: {lat: $originLat, lon: $originLon}
     to: {lat: $destLat, lon: $destLon}
     numItineraries: 10
-    transportModes: [{mode:TRANSIT},{mode:WALK},{mode:BICYCLE}]
   ) {
     itineraries {
       walkDistance

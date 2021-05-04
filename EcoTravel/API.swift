@@ -127,7 +127,6 @@ public final class FindRoutesQuery: GraphQLQuery {
         from: {lat: $originLat, lon: $originLon}
         to: {lat: $destLat, lon: $destLon}
         numItineraries: 10
-        transportModes: [{mode: TRANSIT}, {mode: WALK}, {mode: BICYCLE}]
       ) {
         __typename
         itineraries {
@@ -201,7 +200,7 @@ public final class FindRoutesQuery: GraphQLQuery {
 
     public static var selections: [GraphQLSelection] {
       return [
-        GraphQLField("plan", arguments: ["from": ["lat": GraphQLVariable("originLat"), "lon": GraphQLVariable("originLon")], "to": ["lat": GraphQLVariable("destLat"), "lon": GraphQLVariable("destLon")], "numItineraries": 10, "transportModes": [["mode": "TRANSIT"], ["mode": "WALK"], ["mode": "BICYCLE"]]], type: .object(Plan.selections)),
+        GraphQLField("plan", arguments: ["from": ["lat": GraphQLVariable("originLat"), "lon": GraphQLVariable("originLon")], "to": ["lat": GraphQLVariable("destLat"), "lon": GraphQLVariable("destLon")], "numItineraries": 10], type: .object(Plan.selections)),
       ]
     }
 
