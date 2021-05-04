@@ -2,7 +2,7 @@
 //  HomeViewController.swift
 //  EcoTravel
 //
-//  Created by iosdev on 15.4.2021.
+//  Created by Tuomas Bergholm on 15.4.2021.
 //
 
 import UIKit
@@ -11,11 +11,8 @@ import MOPRIMTmdSdk
 import CoreLocation
 import CoreMotion
 
-protocol HandleMapSearch {
-    func dropPinZoomIn(placemark: MKPlacemark)
-}
-
-class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+// The home screen's ViewController, includes map and location related functions
+class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, HandleMapSearch {
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -64,22 +61,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         createCurrentLocationButton()
         createRouteSuggestionsButton()
         
+        // The Moprim API is started
         TMD.start()
-    }
-    
-    func startLocationUpdates() {
-        if CLLocationManager.locationServicesEnabled() {
-            print("Location latitude: \(locationManager.location?.coordinate.latitude ?? 0.0)")
-            locationManager.distanceFilter = 50
-            locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-            locationManager.startUpdatingLocation()
-        } else {
-            print("Location services not available")
-        }
     }
     
     // MARK: - Location manager delegate
     
+    // Location permission is checked and requested, precise location requested
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         startStopRequestAuthorization(manager: manager, status: manager.authorizationStatus)
         
@@ -87,14 +75,31 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             let preciseLocationAuthorized = (manager.accuracyAuthorization == .fullAccuracy)
             if preciseLocationAuthorized == false {
                 manager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "tmd.AccurateLocationPurpose")
-                // Note that this will only ask for TEMPORARY precise location.
-                // You should make sure to ask your user to keep the Precise Location turned on in the Settings.
             }
         } else {
-            // No need to ask for precise location before iOS 14
+            print("No need for precise location request")
         }
     }
     
+    // Location manager did update the location
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Location did update: \(locations)")
+    }
+    
+    // MARK: - Map view delegate
+    
+    // Map view did update user location
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        print("User location updated")
+        // If the user has not searched a destination, the map will follow the user's location
+        if(!searchedLocationDisplayed) {
+            mapView.setCenter(userLocation.coordinate, animated: true)
+        }
+    }
+    
+    // MARK: - Location and motion initialization functions
+    
+    // The location authorization is checked and requested
     func startStopRequestAuthorization(manager: CLLocationManager, status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:
@@ -114,10 +119,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("Location did update: \(locations)")
-    }
-    
+    // Motion permissions are asked for the Moprim API
     func askMotionPermissions() {
         if CMMotionActivityManager.isActivityAvailable() {
             self.motionActivityManager.startActivityUpdates(to: OperationQueue.main) { (motion) in
@@ -127,17 +129,21 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
-    // MARK: - Map view delegate
-    
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        print("User location updated")
-        if(!searchedLocationDisplayed) {
-            mapView.setCenter(userLocation.coordinate, animated: true)
+    // Location updates are started
+    func startLocationUpdates() {
+        if CLLocationManager.locationServicesEnabled() {
+            print("Location latitude: \(locationManager.location?.coordinate.latitude ?? 0.0)")
+            locationManager.distanceFilter = 50
+            locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+            locationManager.startUpdatingLocation()
+        } else {
+            print("Location services not available")
         }
     }
     
     // MARK: - Current location button functions
     
+    // Current location button is added to the map view
     func createCurrentLocationButton() {
         currentLocationButton = UIButton(type: UIButton.ButtonType.system)
         
@@ -161,6 +167,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         ])
     }
     
+    // When the current location button is tapped, the map moves to the user's current location and the route suggestions button is removed
     @objc func currentLocationButtonTapped(_ sender: UIButton!) {
         if let currentLocation = locationManager.location?.coordinate {
             let coordinateRegion = MKCoordinateRegion(center: currentLocation, latitudinalMeters: 5000, longitudinalMeters: 5000)
@@ -179,6 +186,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
     
     // MARK: - Route suggestions button functions
     
+    // Route suggestions button is created
     func createRouteSuggestionsButton() {
         routeSuggestionsButton = UIButton(type: UIButton.ButtonType.system)
         
@@ -193,6 +201,7 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         routeSuggestionsButton.addTarget(self, action: #selector(self.routeSuggestionsButtonTapped), for: .touchUpInside)
     }
     
+    // Route suggestions button is displayed
     func displayRouteSuggestionsButton() {
         if let routeSuggestionsButton = routeSuggestionsButton {
             mapView.addSubview(routeSuggestionsButton)
@@ -207,10 +216,12 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
         }
     }
     
+    // When the route suggestions button is tapped, the segue to the route suggestions screen is performed
     @objc func routeSuggestionsButtonTapped(_ sender: UIButton!) {
         performSegue(withIdentifier: "toRouteSuggestions", sender: self)
     }
     
+    // The origin and destination coordinates and the destination place name are passed to the route suggestions ViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let routeSuggestionsVC = segue.destination as? RouteSuggestionsViewController {
             
@@ -227,13 +238,13 @@ class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapView
             }
         }
     }
-}
-
-// Extension for HandleMapSearch protocol function
-extension HomeViewController: HandleMapSearch {
     
+    // MARK: - HandleMapSearch protocol
+    
+    // Handle map search protocol function for placing a pin on a searched location
     func dropPinZoomIn(placemark: MKPlacemark) {
         searchedLocationDisplayed = true
+        // Route suggestions button is displayed in the map view
         displayRouteSuggestionsButton()
         
         // cache the pin
@@ -252,4 +263,9 @@ extension HomeViewController: HandleMapSearch {
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }
+}
+
+// Handle map search protocol
+protocol HandleMapSearch {
+    func dropPinZoomIn(placemark: MKPlacemark)
 }

@@ -2,14 +2,17 @@
 //  TripPropertyConverter.swift
 //  EcoTravel
 //
-//  Created by iosdev on 3.5.2021.
+//  Created by Tuomas Bergholm on 3.5.2021.
 //
 
 import Foundation
 
+// Class for converting different properties of trips to different formats
 class TripPropertyConverter {
     
+    // Function for converting the full activity name of trips to a more readable, shorter version
     func convertFullActivityName(trip: TripCoreData) -> String {
+        // If the correctedActivity is not empty, i.e. the activity name has been corrected, it is used, otherwise the originalActivity is used
         var correctActivity: String
         if(trip.correctedActivity != "") {
             correctActivity = trip.correctedActivity ?? "No activity"
@@ -17,6 +20,7 @@ class TripPropertyConverter {
             correctActivity = trip.originalActivity ?? "No activity"
         }
         
+        // The activity name is set based on the original value and then returned
         var activityName: String
         switch correctActivity {
         case "unknown":
@@ -80,6 +84,7 @@ class TripPropertyConverter {
         return activityName
     }
     
+    // Function for converting timestamps in milliseconds to date strings
     func convertTimestampToDateString(timestamp: Int) -> String {
         let date = Date(timeIntervalSince1970: Double(timestamp) / 1000.0)
         let formatter = DateFormatter()
@@ -89,6 +94,7 @@ class TripPropertyConverter {
         return formattedDate
     }
     
+    // Function for getting the rating for a specific trip activity type
     func getEcoRatingForTripActivity(activityName: String) -> Int {
         var rating: Int
         switch activityName {

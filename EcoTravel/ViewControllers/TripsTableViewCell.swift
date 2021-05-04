@@ -2,12 +2,13 @@
 //  TripsTableViewCell.swift
 //  EcoTravel
 //
-//  Created by iosdev on 28.4.2021.
+//  Created by Tuomas Bergholm on 28.4.2021.
 //
 
 import UIKit
 import MOPRIMTmdSdk
 
+// Class for the custom trips table view cell
 class TripsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var activityLabel: UILabel!
@@ -33,6 +34,7 @@ class TripsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    // When the edit button on the cell is tapped, a transition to the edit trip screen is done
     @IBAction func editButtonTapped(_ sender: UIButton) {
         if let editTripViewController = storyboard?.instantiateViewController(identifier: "editTripViewController") as? EditTripViewController {
             editTripViewController.trip = trip

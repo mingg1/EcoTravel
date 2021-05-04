@@ -278,7 +278,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EJX-8Y-V4o" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7169.5652173913049" y="-670.3125"/>
+            <point key="canvasLocation" x="7199" y="-670"/>
         </scene>
         <!--Edit Trip View Controller-->
         <scene sceneID="kYs-rf-Aw3">
@@ -333,7 +333,6 @@
                             <constraint firstItem="Se9-c5-giz" firstAttribute="trailing" secondItem="kWF-xk-y8x" secondAttribute="trailing" constant="20" id="fQd-Vz-G6y"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="QNT-Fc-1Kx"/>
                     <connections>
                         <outlet property="activityPickerView" destination="kWF-xk-y8x" id="r2G-cH-7zR"/>
                         <outlet property="detailsTextView" destination="O1x-eU-LZF" id="dVR-3t-Kdt"/>
@@ -341,7 +340,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G7M-G3-bhH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8048" y="-670"/>
+            <point key="canvasLocation" x="8088" y="-670"/>
         </scene>
     </scenes>
     <resources>

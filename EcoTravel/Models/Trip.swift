@@ -2,11 +2,12 @@
 //  Trip.swift
 //  EcoTravel
 //
-//  Created by iosdev on 16.4.2021.
+//  Created by Tuomas Bergholm on 16.4.2021.
 //
 
 import Foundation
 
+// Trip class that is used as a temporary data structure for the trip objects that are fetched from the API
 class Trip {
     
     let activityId: Int
