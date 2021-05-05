@@ -2,14 +2,14 @@
 //  LocationSearchTable.swift
 //  EcoTravel
 //
-//  Created by iosdev on 21.4.2021.
+//  Created by Tuomas Bergholm on 21.4.2021.
 //
 
 import UIKit
 import MapKit
 
 // Table view controller for displaying the search results
-class LocationSearchTable: UITableViewController {
+class LocationSearchTable: UITableViewController, UISearchResultsUpdating {
     
     var matchingItems: [MKMapItem] = []
     var mapView: MKMapView? = nil
@@ -18,14 +18,14 @@ class LocationSearchTable: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-}
-
-// Extension for UISearchResultsUpdating protocol function
-extension LocationSearchTable: UISearchResultsUpdating {
     
+    // MARK: - UISearchResultsUpdating protocol
+    
+    // UISearchResultsUpdating protocol function for updating search results on the search table view
     func updateSearchResults(for searchController: UISearchController) {
         guard let mapView = mapView,
               let searchBarText = searchController.searchBar.text else { return }
+        // Location search request is done
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchBarText
         request.region = mapView.region
@@ -38,10 +38,8 @@ extension LocationSearchTable: UISearchResultsUpdating {
             self.tableView.reloadData()
         }
     }
-}
-
-// Extension for table view data source functions
-extension LocationSearchTable {
+    
+    // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
@@ -55,13 +53,12 @@ extension LocationSearchTable {
         cell.detailTextLabel?.text = address
         return cell
     }
-}
-
-// Extension for table view delegate functions
-extension LocationSearchTable {
+    
+    // MARK: - Table view delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = matchingItems[indexPath.row].placemark
+        // A pin is set on the map on the selected location
         handleMapSearchDelegate?.dropPinZoomIn(placemark: selectedItem)
         dismiss(animated: true, completion: nil)
     }

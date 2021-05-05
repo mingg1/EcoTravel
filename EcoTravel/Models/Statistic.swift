@@ -2,11 +2,12 @@
 //  Statistic.swift
 //  EcoTravel
 //
-//  Created by iosdev on 28.4.2021.
+//  Created by Tuomas Bergholm on 28.4.2021.
 //
 
 import Foundation
 
+// Statistic class that is used as a temporary data structure for the statistic objects that are fetched from the API
 class Statistic {
     
     let activity: String

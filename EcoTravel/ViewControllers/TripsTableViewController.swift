@@ -2,12 +2,13 @@
 //  TripsTableViewController.swift
 //  EcoTravel
 //
-//  Created by iosdev on 28.4.2021.
+//  Created by Tuomas Bergholm on 28.4.2021.
 //
 
 import UIKit
 import CoreData
 
+// The ViewController for the trips list screen
 class TripsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     var fetchedResultsController: NSFetchedResultsController<TripCoreData>?
@@ -15,6 +16,7 @@ class TripsTableViewController: UITableViewController, NSFetchedResultsControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // The previous trips are fetched from Core Data with fetchedResultsController
         let tripsRequest: NSFetchRequest<TripCoreData> = TripCoreData.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "timestampStart", ascending: false)
         tripsRequest.sortDescriptors = [sortDescriptor]
@@ -37,7 +39,7 @@ class TripsTableViewController: UITableViewController, NSFetchedResultsControlle
             return 0
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "tripsTableViewCell"
         
@@ -49,71 +51,68 @@ class TripsTableViewController: UITableViewController, NSFetchedResultsControlle
             fatalError("Trip not found from fetched results controller")
         }
         
-        var correctActivity: String
-        if(trip.correctedActivity != "") {
-            correctActivity = trip.correctedActivity ?? "No activity"
-        } else {
-            correctActivity = trip.originalActivity ?? "No activity"
-        }
+        // The storyboard, navigationController and trip are passed to the table view cell for later use
+        cell.storyboard = storyboard
+        cell.navigationController = navigationController
+        cell.trip = trip
         
-        var activityName: String
-        switch correctActivity {
-        case "unknown":
-            activityName = "Unknown"
-        case "stationary":
-            activityName = "Stationary"
-        case "non-motorized":
-            activityName = "Non-motorized"
-        case "non-motorized/bicycle":
-            activityName = "Bicycle"
-        case "non-motorized/pedestrian":
-            activityName = "Pedestrian"
-        case "non-motorized/pedestrian/walk":
-            activityName = "Walk"
-        case "non-motorized/pedestrian/run":
-            activityName = "Run"
-        case "motorized":
-            activityName = "Motorized"
-        case "motorized/road":
-            activityName = "Motorized/road"
-        case "motorized/road/car":
-            activityName = "Car"
-        case "motorized/road/bus":
-            activityName = "Bus"
-        case "motorized/rail":
-            activityName = "Rail"
-        case "motorized/rail/tram":
-            activityName = "Tram"
-        case "motorized/rail/train":
-            activityName = "Train"
-        case "motorized/rail/metro":
-            activityName = "Metro"
-        case "motorized/air/plane":
-            activityName = "Plane"
-        default:
-            activityName = "No activity"
-        }
+        // The activityName of the trip is converted to a more readable, shorter version
+        let tripPropertyConverter = TripPropertyConverter()
+        let activityName = tripPropertyConverter.convertFullActivityName(trip: trip)
         
-        cell.activityLabel.text = "\(activityName)"
+        cell.activityLabel.text = activityName
         
-        let startTimeDate = Date(timeIntervalSince1970: Double(trip.timestampStart) / 1000.0)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy HH:mm"
-        let formattedStartTimeDate = formatter.string(from: startTimeDate)
+        // The timestamps of the trip are converted to date strings
+        let startTimeDate = tripPropertyConverter.convertTimestampToDateString(timestamp: Int(trip.timestampStart))
         
-        cell.startTimeLabel.text = "Start: \(formattedStartTimeDate)"
+        cell.startTimeLabel.text = "\(startTimeDate) -"
         
-        let endTimeDate = Date(timeIntervalSince1970: Double(trip.timestampEnd) / 1000.0)
-        let formattedEndTimeDate = formatter.string(from: endTimeDate)
+        let endTimeDate = tripPropertyConverter.convertTimestampToDateString(timestamp: Int(trip.timestampEnd))
         
-        cell.endTimeLabel.text = "End: \(formattedEndTimeDate)"
+        cell.endTimeLabel.text = endTimeDate
         cell.co2Label.text = "Co2: \(String(format:"%.1f", trip.co2)) g"
         cell.distanceLabel.text = "Distance: \(String(format:"%.1f", trip.distance)) m"
         cell.speedLabel.text = "Avg. speed: \(String(format:"%.1f", trip.speed)) km/h"
         
+        // The eco-rating is determined based on the activity
+        let rating = tripPropertyConverter.getEcoRatingForTripActivity(activityName: activityName)
+        
+        setEcoRatingImages(cell: cell, rating: rating)
+        
         return cell
     }
     
+    // MARK: - Table view delegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // When a table view cell is tapped, a transition to the details screen is performed
+        if let tripDetailsViewController = storyboard?.instantiateViewController(identifier: "tripDetailsViewController") as? TripDetailsViewController {
+            guard let trip = self.fetchedResultsController?.object(at: indexPath) else {
+                fatalError("Trip not found from fetched results controller")
+            }
+            tripDetailsViewController.trip = trip
+            navigationController?.pushViewController(tripDetailsViewController, animated: true)
+        }
+    }
+    
+    // Function for setting the eco-rating images to the cells based on the eco-rating
+    func setEcoRatingImages(cell: TripsTableViewCell, rating: Int) {
+        // First all the icons are reset to empty versions due to activity editing consequences
+        for i in 0...4 {
+            let ratingIconImageView = cell.ecoRatingStackView.subviews[i] as! UIImageView
+            ratingIconImageView.image = UIImage(named: "EcoRatingIconEmpty")
+        }
+        
+        // Based on the eco-rating, the right amount of icons are set
+        for i in 0..<rating {
+            let ratingIconImageView = cell.ecoRatingStackView.subviews[i] as! UIImageView
+            ratingIconImageView.image = UIImage(named: "EcoRatingIcon")
+        }
+    }
+    
+    // MARK: - NSFetchedResultsController delegate
+    
+    // When the trips data is updated, the table view data is reloaded
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("controllerDidChangeContent")
         tableView.reloadData()
