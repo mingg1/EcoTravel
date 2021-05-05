@@ -68,7 +68,7 @@ class ProfileViewController: UIViewController {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "Michael Jackson"
+        label.text = "Joe Traveler"
         label.font = UIFont.boldSystemFont(ofSize: 26)
         label.textColor = .white
         return label
@@ -77,7 +77,7 @@ class ProfileViewController: UIViewController {
     let emailLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.text = "Michael@gmail.com"
+        label.text = "joe.traveler@gmail.com"
         label.font = UIFont.systemFont(ofSize: 18)
         label.textColor = .white
         return label
