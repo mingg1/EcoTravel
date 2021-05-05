@@ -4,6 +4,7 @@
 import UIKit
 import MapKit
 import Polyline
+import MOPRIMTmdSdk
 
 class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -75,9 +76,9 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = UILabel()
-        headerLabel.text = "Route option(s)"
+        headerLabel.text = "\(data.itineraries.count)   Route option(s)"
         headerLabel.backgroundColor = UIColor.white
-        headerLabel.font = UIFont.boldSystemFont(ofSize: 20.0)
+        headerLabel.font = UIFont.boldSystemFont(ofSize: 22.0)
         return headerLabel
     }
     
@@ -92,7 +93,6 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // represent each route options from GraphQL query results
         let itinerary = data.itineraries[indexPath.row]
-        
         let duration = durationText(duration: itinerary.duration)
         let startTime = timeFormatter(time: itinerary.legs[0].startTime)
         let arrivalTime = timeFormatter(time: itinerary.legs.last!.endTime)
@@ -108,7 +108,7 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
             let modeName = leg.mode
             let modeImgName = setModeImgName(mode: modeName)
             generateImageView(imgName: modeImgName, superView: stackView, mode: modeName,size: 20)
-            
+
             if let routeTrip = leg.trip {
                 let routeShortName = routeTrip.routeShortName
                 let routeshortNameLabel = UILabelPadding()
@@ -119,12 +119,10 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
                 routeshortNameLabel.font = routeshortNameLabel.font.withSize(13.0)
                 stackView.addArrangedSubview(routeshortNameLabel)
             }
-            
             if (index != itinerary.legs.count - 1) {
                 generateImageView(imgName: "chevron.forward", superView: stackView, mode:"default",size: 20)
             }
         }
-        
         let itineraryCell = tableView.dequeueReusableCell(withIdentifier: ItineraryTableCell.identifier, for: indexPath) as! ItineraryTableCell
         itineraryCell.configure(route:stackView, time: durationTime, duration: duration)
         
