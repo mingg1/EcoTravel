@@ -45,7 +45,7 @@ class TripDetailsViewController: UIViewController {
         
         timeLabel.text = "\(startTimeDate) - \(endTimeDate)"
         co2Label.text = "Co2: \(String(format:"%.1f", trip.co2)) g"
-        distanceLabel.text = "Distance: \(String(format:"%.1f", trip.distance)) m"
+        distanceLabel.text = "Distance: \(String(format:"%.1f", trip.distance / 1000)) km"
         speedLabel.text = "Avg. speed: \(String(format:"%.1f", trip.speed)) km/h"
         
         // The eco-rating is determined based on the activity

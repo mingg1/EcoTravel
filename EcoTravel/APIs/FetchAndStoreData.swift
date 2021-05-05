@@ -16,8 +16,8 @@ class FetchAndStoreData {
     func fetchUsersTrips() {
         // Timestamps in milliseconds are created for the timeframe of the trips to be fetched
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy/MM/dd HH:mm"
-        let startTime = formatter.date(from: "2021/01/01 00:00")
+        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        let startTime = formatter.date(from: "01.01.2021 00:00")
         let startTimeMilliseconds = Int64((startTime!.timeIntervalSince1970 * 1000.0).rounded())
         let endTime = Date()
         let endTimeMilliseconds = Int64((endTime.timeIntervalSince1970 * 1000.0).rounded())

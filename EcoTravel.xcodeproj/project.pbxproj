@@ -18,6 +18,8 @@
 		6A327AFD26399912004176CA /* StatisticCoreData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A327AFB26399912004176CA /* StatisticCoreData+CoreDataClass.swift */; };
 		6A327AFE26399912004176CA /* StatisticCoreData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A327AFC26399912004176CA /* StatisticCoreData+CoreDataProperties.swift */; };
 		6A340F2126304E21007DBDFA /* RouteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A340F2026304E21007DBDFA /* RouteDetailViewController.swift */; };
+		6A41DCE22642B7D400462669 /* DataModelClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41DCE12642B7D400462669 /* DataModelClassTests.swift */; };
+		6A41DCE82642C0EC00462669 /* CoreDataClassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A41DCE72642C0EC00462669 /* CoreDataClassTests.swift */; };
 		6A46E4E026338B3B0073329B /* routeFinderQuery.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 6A46E4DF26338B3B0073329B /* routeFinderQuery.graphql */; };
 		6A46E4E82635A3D80073329B /* schema.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A46E4E72635A3D80073329B /* schema.json */; };
 		6A46E4EE2635A4A20073329B /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A46E4ED2635A4A20073329B /* API.swift */; };
@@ -32,7 +34,7 @@
 		6A87F7E426287EE200B59ACC /* EcoTravel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7E226287EE200B59ACC /* EcoTravel.xcdatamodeld */; };
 		6A87F7E626287EE400B59ACC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A87F7E526287EE400B59ACC /* Assets.xcassets */; };
 		6A87F7E926287EE400B59ACC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A87F7E726287EE400B59ACC /* LaunchScreen.storyboard */; };
-		6A87F7F426287EE400B59ACC /* EcoTravelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7F326287EE400B59ACC /* EcoTravelTests.swift */; };
+		6A87F7F426287EE400B59ACC /* ConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7F326287EE400B59ACC /* ConversionTests.swift */; };
 		6A87F7FF26287EE400B59ACC /* EcoTravelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F7FE26287EE400B59ACC /* EcoTravelUITests.swift */; };
 		6A87F816262883C600B59ACC /* StatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F815262883C600B59ACC /* StatisticsViewController.swift */; };
 		6A87F81E2628852500B59ACC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A87F81D2628852500B59ACC /* ProfileViewController.swift */; };
@@ -118,6 +120,8 @@
 		6A327AFB26399912004176CA /* StatisticCoreData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatisticCoreData+CoreDataClass.swift"; sourceTree = "<group>"; };
 		6A327AFC26399912004176CA /* StatisticCoreData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatisticCoreData+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		6A340F2026304E21007DBDFA /* RouteDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewController.swift; sourceTree = "<group>"; };
+		6A41DCE12642B7D400462669 /* DataModelClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModelClassTests.swift; sourceTree = "<group>"; };
+		6A41DCE72642C0EC00462669 /* CoreDataClassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataClassTests.swift; sourceTree = "<group>"; };
 		6A46E4DF26338B3B0073329B /* routeFinderQuery.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = routeFinderQuery.graphql; sourceTree = "<group>"; };
 		6A46E4E72635A3D80073329B /* schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = schema.json; sourceTree = "<group>"; };
 		6A46E4ED2635A4A20073329B /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
@@ -135,7 +139,7 @@
 		6A87F7E826287EE400B59ACC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6A87F7EA26287EE400B59ACC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A87F7EF26287EE400B59ACC /* EcoTravelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EcoTravelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6A87F7F326287EE400B59ACC /* EcoTravelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcoTravelTests.swift; sourceTree = "<group>"; };
+		6A87F7F326287EE400B59ACC /* ConversionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversionTests.swift; sourceTree = "<group>"; };
 		6A87F7F526287EE400B59ACC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6A87F7FA26287EE400B59ACC /* EcoTravelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EcoTravelUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A87F7FE26287EE400B59ACC /* EcoTravelUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcoTravelUITests.swift; sourceTree = "<group>"; };
@@ -268,8 +272,10 @@
 		6A87F7F226287EE400B59ACC /* EcoTravelTests */ = {
 			isa = PBXGroup;
 			children = (
-				6A87F7F326287EE400B59ACC /* EcoTravelTests.swift */,
+				6A87F7F326287EE400B59ACC /* ConversionTests.swift */,
 				6A87F7F526287EE400B59ACC /* Info.plist */,
+				6A41DCE12642B7D400462669 /* DataModelClassTests.swift */,
+				6A41DCE72642C0EC00462669 /* CoreDataClassTests.swift */,
 			);
 			path = EcoTravelTests;
 			sourceTree = "<group>";
@@ -653,7 +659,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A87F7F426287EE400B59ACC /* EcoTravelTests.swift in Sources */,
+				6A41DCE22642B7D400462669 /* DataModelClassTests.swift in Sources */,
+				6A41DCE82642C0EC00462669 /* CoreDataClassTests.swift in Sources */,
+				6A87F7F426287EE400B59ACC /* ConversionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

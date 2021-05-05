@@ -71,7 +71,7 @@ class TripsTableViewController: UITableViewController, NSFetchedResultsControlle
         
         cell.endTimeLabel.text = endTimeDate
         cell.co2Label.text = "Co2: \(String(format:"%.1f", trip.co2)) g"
-        cell.distanceLabel.text = "Distance: \(String(format:"%.1f", trip.distance)) m"
+        cell.distanceLabel.text = "Distance: \(String(format:"%.1f", trip.distance / 1000)) km"
         cell.speedLabel.text = "Avg. speed: \(String(format:"%.1f", trip.speed)) km/h"
         
         // The eco-rating is determined based on the activity
