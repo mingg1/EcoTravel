@@ -31,16 +31,52 @@
                                     <segue destination="xMg-ex-ZTc" kind="show" identifier="toTripsTableView" id="jag-Pv-ewQ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsv-mK-kEI">
+                                <rect key="frame" x="125" y="798" width="104" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Weekly"/>
+                                <connections>
+                                    <action selector="weeklyButtonTapped:" destination="Zkc-ih-EaC" eventType="touchUpInside" id="C8m-Y9-5mi"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CTp-fv-IND">
+                                <rect key="frame" x="259" y="794" width="116" height="52"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Monthly"/>
+                                <connections>
+                                    <action selector="monthlyButtonTapped:" destination="Zkc-ih-EaC" eventType="touchUpInside" id="Yys-Sq-bba"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFF-NW-ZcY">
+                                <rect key="frame" x="20" y="794" width="71" height="52"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="Daily"/>
+                                <connections>
+                                    <action selector="dailyButtonTapped:" destination="Zkc-ih-EaC" eventType="touchUpInside" id="T15-X3-SFX"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9k2-ly-kYe"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="CTp-fv-IND" firstAttribute="leading" secondItem="fsv-mK-kEI" secondAttribute="trailing" constant="15" id="2hY-g6-Ss6"/>
+                            <constraint firstItem="kFF-NW-ZcY" firstAttribute="leading" secondItem="9k2-ly-kYe" secondAttribute="leading" constant="5" id="3ql-0g-Eex"/>
+                            <constraint firstItem="9k2-ly-kYe" firstAttribute="bottom" secondItem="CTp-fv-IND" secondAttribute="bottom" constant="20" id="6ks-O2-2Ef"/>
+                            <constraint firstItem="fsv-mK-kEI" firstAttribute="leading" secondItem="kFF-NW-ZcY" secondAttribute="trailing" constant="15" id="A0m-eu-7rL"/>
+                            <constraint firstItem="9k2-ly-kYe" firstAttribute="bottom" secondItem="kFF-NW-ZcY" secondAttribute="bottom" constant="20" id="AdQ-fc-Q22"/>
                             <constraint firstItem="9k2-ly-kYe" firstAttribute="trailing" secondItem="dDr-Mg-fRa" secondAttribute="trailing" constant="108" id="CEL-RH-BE2"/>
+                            <constraint firstItem="9k2-ly-kYe" firstAttribute="bottom" secondItem="fsv-mK-kEI" secondAttribute="bottom" constant="20" id="Dda-9v-fyb"/>
+                            <constraint firstItem="CTp-fv-IND" firstAttribute="leading" secondItem="fsv-mK-kEI" secondAttribute="trailing" constant="15" id="DsW-tV-8JF"/>
+                            <constraint firstItem="fsv-mK-kEI" firstAttribute="leading" secondItem="kFF-NW-ZcY" secondAttribute="trailing" constant="10" id="E1i-a2-lSU"/>
+                            <constraint firstItem="kFF-NW-ZcY" firstAttribute="leading" secondItem="9k2-ly-kYe" secondAttribute="leading" constant="5" id="Iyb-c4-9SA"/>
                             <constraint firstItem="gDd-j0-aaY" firstAttribute="top" secondItem="9k2-ly-kYe" secondAttribute="top" constant="36" id="KpF-v1-78f"/>
+                            <constraint firstItem="9k2-ly-kYe" firstAttribute="trailing" secondItem="CTp-fv-IND" secondAttribute="trailing" constant="5" id="Lrr-is-RAS"/>
+                            <constraint firstItem="fsv-mK-kEI" firstAttribute="leading" secondItem="kFF-NW-ZcY" secondAttribute="trailing" constant="15" id="blT-eN-cWI"/>
                             <constraint firstItem="9k2-ly-kYe" firstAttribute="trailing" secondItem="gDd-j0-aaY" secondAttribute="trailing" constant="109" id="dmJ-0Z-u7W"/>
                             <constraint firstItem="dDr-Mg-fRa" firstAttribute="leading" secondItem="9k2-ly-kYe" secondAttribute="leading" constant="108" id="dnc-Gz-TaN"/>
                             <constraint firstItem="gDd-j0-aaY" firstAttribute="leading" secondItem="9k2-ly-kYe" secondAttribute="leading" constant="109" id="fql-iP-5NC"/>
                             <constraint firstItem="dDr-Mg-fRa" firstAttribute="top" secondItem="gDd-j0-aaY" secondAttribute="bottom" constant="36" id="nF9-AP-RKA"/>
+                            <constraint firstItem="9k2-ly-kYe" firstAttribute="bottom" secondItem="fsv-mK-kEI" secondAttribute="bottom" constant="16" id="yA5-Tc-bVL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xmi-9c-orn"/>

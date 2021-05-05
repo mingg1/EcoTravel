@@ -26,9 +26,8 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
         
         fetchStatisticsFromCoreData()
         setupPieChart()
-        calculateAndSetPieChartStatistics()
-        
-        // createSyntheticData()
+        displayAllStat()
+        createSyntheticData()
     }
     
     func setupPieChart() {
@@ -56,39 +55,114 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
         try? fetchedResultsController?.performFetch()
     }
     
-    func calculateAndSetPieChartStatistics() {
+    func displayDailyStat() {
+        guard let statistics = fetchedResultsController?.fetchedObjects else {
+            fatalError("Statistics not found from fetched results controller")
+        }
+        let dateToday = Calendar.current.date(byAdding: .day, value: -0, to: Date())
+        let dateTodayInMilliseconds = Int((dateToday!.timeIntervalSince1970 * 1000.0).rounded())
+        
+        for statistic in statistics {
+            
+            guard let activityDateString = statistic.dateString else { fatalError("activity Date Error") }
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let formattedActivityDate = formatter.date(from: activityDateString)
+            
+            let activityDateMilliseconds = Int((formattedActivityDate!.timeIntervalSince1970 * 1000.0).rounded())
+            
+            if(activityDateMilliseconds > dateTodayInMilliseconds) {
+                calculateDistance()
+            }
+            
+        }
+    }
+    
+    func displayStatForLastWeek() {
+        guard let statistics = fetchedResultsController?.fetchedObjects else {
+            fatalError("Statistics not found from fetched results controller")
+        }
+        let dateWeekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())
+        let dateWeekAgoMilliseconds = Int((dateWeekAgo!.timeIntervalSince1970 * 1000.0).rounded())
+        
+        for statistic in statistics {
+            
+            guard let activityDateString = statistic.dateString else { fatalError("activity Date Error") }
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let formattedActivityDate = formatter.date(from: activityDateString)
+            
+            let activityDateMilliseconds = Int((formattedActivityDate!.timeIntervalSince1970 * 1000.0).rounded())
+            
+            if(activityDateMilliseconds > dateWeekAgoMilliseconds) {
+                calculateDistance()
+            }
+            
+        }
+    }
+    func displayStatForLastMonth() {
+        guard let statistics = fetchedResultsController?.fetchedObjects else {
+            fatalError("Statistics not found from fetched results controller")
+        }
+        let dateMonthAgo = Calendar.current.date(byAdding: .day, value: -30, to: Date())
+        let dateMonthAgoMilliseconds = Int((dateMonthAgo!.timeIntervalSince1970 * 1000.0).rounded())
+        
+        for statistic in statistics {
+            
+            guard let activityDateString = statistic.dateString else { fatalError("activity Date Error") }
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let formattedActivityDate = formatter.date(from: activityDateString)
+            
+            let activityDateMilliseconds = Int((formattedActivityDate!.timeIntervalSince1970 * 1000.0).rounded())
+            
+            if(activityDateMilliseconds > dateMonthAgoMilliseconds) {
+                calculateDistance()
+            }
+            
+        }
+    }
+    
+    func displayAllStat() {
+        
+       calculateDistance()
+    }
+    
+    
+    func calculateDistance() {
+        
         guard let statistics = fetchedResultsController?.fetchedObjects else {
             fatalError("Statistics not found from fetched results controller")
         }
         
-        var unknownDistance = 0.3
+        
+        var unknownDistance = 5.0
         var stationaryDistance = 0.0
-        var nonMotorizedDistance = 4.0
+        var nonMotorizedDistance = 0.0
         var bicycleDistance = 0.0
         var pedestrianDistance = 0.0
         var walkDistance = 6.0
-        var runDistance = 0.0
+        var runDistance = 4.0
         var motorizedDistance = 0.0
         var motorizedRoadDistance = 0.0
-        var carDistance = 7.0
+        var carDistance = 0.0
         var busDistance = 0.0
         var railDistance = 0.0
         var tramDistance = 0.0
-        var trainDistance = 10.0
+        var trainDistance = 0.0
         var metroDistance = 0.0
         var planeDistance = 0.0
         var wheelChairDistance = 0.0
-        var skiingDistance = 3.0
+        var skiingDistance = 0.0
         var EScooterDistance = 0.0
         var EbikeDistance = 0.0
-        var carElectricDistance = 9.0
+        var carElectricDistance = 0.0
         var motorbikeDistance = 0.0
         var scooterDistance = 0.0
         var ferryDistance = 0.0
         var snowDistance = 0.0
         var waterDistance = 0.0
         var airDistance = 0.0
-        
         
         for statistic in statistics {
             switch statistic.activity {
@@ -150,9 +224,7 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
                 print("Statistic activity name unknown")
             }
         }
-        
-        
-        
+       
         let unknownData = PieChartDataEntry(value: Double(round(1000 * unknownDistance) / 1000), label: "Unknown")
         
         let nonMotorizedData = PieChartDataEntry(value: Double(round(1000 * (nonMotorizedDistance + stationaryDistance + wheelChairDistance + skiingDistance + snowDistance)) / 1000), label: "Non-Motor")
@@ -171,7 +243,8 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("controllerDidChangeContent")
-        calculateAndSetPieChartStatistics()
+        
+        displayAllStat()
         setPieChartData()
     }
     
@@ -213,4 +286,19 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
         TMDCloudApi.generateSyntheticData(withOriginLocation: origin, destination: destination, stopTimestamp: endTime, requestType: TMDSyntheticRequestType.bicycle, hereApiKey: "CnnKj8CsVyqNIv0qtDG3NXMs5irPJgdi0RplONmORAQ")
     }
     
+    @IBAction func weeklyButtonTapped(_ sender: UIButton) {
+        displayStatForLastWeek()
+        setPieChartData()
+    }
+    
+    @IBAction func dailyButtonTapped(_ sender: UIButton) {
+        displayDailyStat()
+        setPieChartData()
+    }
+    
+    
+    @IBAction func monthlyButtonTapped(_ sender: UIButton) {
+        displayStatForLastMonth()
+        setPieChartData()
+    }
 }
