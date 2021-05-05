@@ -286,6 +286,7 @@
 		6A87F80F2628810F00B59ACC /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				6A46E4FC263751BD0073329B /* ItineraryTableCell.xib */,
 				6A2762CD263ED5D40069D77B /* TripsTableView.storyboard */,
 				6ADCE6742629C3E600F3B781 /* RouteSuggestions.storyboard */,
 				6ADCE66E2629C2D400F3B781 /* Profile.storyboard */,
@@ -310,7 +311,6 @@
 				6A87F81D2628852500B59ACC /* ProfileViewController.swift */,
 				6A87F83C2628910A00B59ACC /* RouteSuggestionsViewController.swift */,
 				6A46E4FB263751BD0073329B /* ItineraryTableCell.swift */,
-				6A46E4FC263751BD0073329B /* ItineraryTableCell.xib */,
 				6A340F2026304E21007DBDFA /* RouteDetailViewController.swift */,
 			);
 			path = ViewControllers;

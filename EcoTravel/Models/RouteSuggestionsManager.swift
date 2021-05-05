@@ -53,15 +53,15 @@ class ModePolyline : MKPolyline {
 func setColor(_ mode: String) -> UIColor {
     switch mode {
     case "WALK":
-        return .green
+        return UIColor(red: 77/255.0, green: 195/255.0, blue: 33/255.0, alpha: 1)
     case "BUS":
-        return .blue
+        return UIColor(red: 30/255.0, green: 96/255.0, blue: 145/255.0, alpha: 1)
     case "TRAM":
-        return .yellow
+        return UIColor(red: 249/255.0, green: 199/255.0, blue: 79/255.0, alpha: 1)
     case "RAIL":
-        return .purple
+        return UIColor(red: 90/255.0, green: 24/255.0, blue: 154/255.0, alpha: 1)
     case "SUBWAY":
-        return .orange
+        return UIColor(red: 252/255.0, green: 119/255.0, blue: 83/255.0, alpha: 1)
     default:
         return .darkGray
     }
@@ -72,23 +72,33 @@ func makeAnnotation(_ mapView:MKMapView, _ coordinate:CLLocationCoordinate2D, is
     annotation.coordinate = coordinate
     mapView.addAnnotation(annotation)
     if (isOrigin){
-        setRegion(mapView, annotation.coordinate)
+        //setRegion(mapView, annotation.coordinate)
         annotation.title = "Current location"
     } else {
         annotation.title = destTitle
     }
 }
 
-func setRegion (_ mapView:MKMapView, _ coordinate: CLLocationCoordinate2D){
-    let span = MKCoordinateSpan(latitudeDelta: 0.4, longitudeDelta: 0.5)
-    let coordinateRegion = MKCoordinateRegion(center: coordinate, span:span)
-    mapView.setRegion(coordinateRegion,animated: true)
+func setRegion (_ mapView:MKMapView, _ originCoordinate:CLLocationCoordinate2D, _ destCoordinate:CLLocationCoordinate2D){
+    
+    let newDistance = CLLocation(latitude: originCoordinate.latitude, longitude: originCoordinate.longitude).distance(from: CLLocation(latitude: destCoordinate.latitude, longitude: destCoordinate.longitude))
+    let region = MKCoordinateRegion(center: originCoordinate, latitudinalMeters: newDistance*5, longitudinalMeters: newDistance*4)
+    let adjustRegion = mapView.regionThatFits(region)
+    mapView.setRegion(adjustRegion, animated:true)
+    mapView.showAnnotations(mapView.annotations, animated: true)
+
+//    let span = MKCoordinateSpan(latitudeDelta: 0.4, longitudeDelta: 0.5)
+//    let coordinateRegion = MKCoordinateRegion(center: coordinate, span:span)
+//    mapView.setRegion(coordinateRegion,animated: true)
 }
 
 func makeRoute(_ mapView:MKMapView, _ originCoordinate:CLLocationCoordinate2D, _ destCoordinate:CLLocationCoordinate2D){
     let request = MKDirections.Request()
     request.source = MKMapItem(placemark: MKPlacemark(coordinate: originCoordinate, addressDictionary: nil))
     request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destCoordinate, addressDictionary: nil))
+    
+    
+    
     let directions = MKDirections(request: request)
     directions.calculate { response, error in
         guard let unwrappedResponse = response else { return }
@@ -96,7 +106,7 @@ func makeRoute(_ mapView:MKMapView, _ originCoordinate:CLLocationCoordinate2D, _
             mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
         }
     }
-    setRegion(mapView, destCoordinate)
+    setRegion(mapView, originCoordinate, destCoordinate)
 }
 
 class UILabelPadding: UILabel {
