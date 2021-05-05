@@ -23,9 +23,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dDr-Mg-fRa">
-                                <rect key="frame" x="108" y="196" width="198" height="39"/>
+                                <rect key="frame" x="108" y="196" width="198" height="36"/>
                                 <color key="backgroundColor" systemColor="systemGray5Color"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="My previous trips"/>
                                 <connections>
                                     <segue destination="xMg-ex-ZTc" kind="show" identifier="toTripsTableView" id="jag-Pv-ewQ"/>
