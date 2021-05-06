@@ -1,4 +1,0 @@
-[fetch]
-	recurseSubmodules = false
-[http "https://gitlab.com"]
-	sslCAInfo = /Users/iosdev/Desktop/Project/ecotravelapp/builds/myBNsEoo/0/Tuomas73/ecotravelapp.tmp/CI_SERVER_TLS_CA_FILE
