@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 
-// The Core Data class for trips
+/// The Core Data class for trips
 public class TripCoreData: NSManagedObject {
 
     // Function for ensuring item uniqueness in the database

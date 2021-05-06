@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-// The ViewController for the trips list screen
+/// The ViewController for the trips list screen
 class TripsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     var fetchedResultsController: NSFetchedResultsController<TripCoreData>?

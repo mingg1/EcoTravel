@@ -8,7 +8,7 @@
 import Foundation
 import MOPRIMTmdSdk
 
-// Class that includes functions related to fetching data from the Moprim API and storing it in Core Data
+/// Class that includes functions related to fetching data from the Moprim API and storing it in Core Data
 class FetchAndStoreData {
     let managedObjectContext = AppDelegate.viewContext
     

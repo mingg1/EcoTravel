@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-// Table view controller for displaying the search results
+/// Table view controller for displaying the search results
 class LocationSearchTable: UITableViewController, UISearchResultsUpdating {
     
     var matchingItems: [MKMapItem] = []

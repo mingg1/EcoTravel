@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Trip class that is used as a temporary data structure for the trip objects that are fetched from the API
+/// Trip class that is used as a temporary data structure for the trip objects that are fetched from the API
 class Trip {
     
     let activityId: Int

@@ -8,7 +8,7 @@
 import UIKit
 import MOPRIMTmdSdk
 
-// ViewController for the edit trip screen
+/// ViewController for the edit trip screen
 class EditTripViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextViewDelegate {
     
     @IBOutlet weak var activityPickerView: UIPickerView!

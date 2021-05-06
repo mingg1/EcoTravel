@@ -8,7 +8,7 @@
 import XCTest
 @testable import EcoTravel
 
-// Test class for data model classes
+/// Test class for data model classes
 class DataModelClassTests: XCTestCase {
 
     override func setUpWithError() throws {

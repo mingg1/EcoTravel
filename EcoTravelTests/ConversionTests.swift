@@ -9,7 +9,7 @@ import XCTest
 @testable import EcoTravel
 import CoreData
 
-// Test class for trip property conversion functions
+/// Test class for trip property conversion functions
 class EcoTravelTests: XCTestCase {
     
     override func setUpWithError() throws {

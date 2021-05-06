@@ -11,7 +11,7 @@ import MOPRIMTmdSdk
 import CoreLocation
 import CoreMotion
 
-// The home screen's ViewController, includes map and location related functions
+/// The home screen's ViewController, includes map and location related functions
 class HomeViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, HandleMapSearch {
     
     @IBOutlet weak var mapView: MKMapView!

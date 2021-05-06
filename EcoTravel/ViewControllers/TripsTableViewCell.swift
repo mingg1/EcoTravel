@@ -8,7 +8,7 @@
 import UIKit
 import MOPRIMTmdSdk
 
-// Class for the custom trips table view cell
+/// Class for the custom trips table view cell
 class TripsTableViewCell: UITableViewCell {
     
     @IBOutlet weak var activityLabel: UILabel!

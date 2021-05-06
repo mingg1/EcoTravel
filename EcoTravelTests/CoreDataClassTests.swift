@@ -9,7 +9,7 @@ import XCTest
 @testable import EcoTravel
 import CoreData
 
-// Test class for Core Data Classes
+/// Test class for Core Data Classes
 class CoreDataClassTests: XCTestCase {
 
     override func setUpWithError() throws {

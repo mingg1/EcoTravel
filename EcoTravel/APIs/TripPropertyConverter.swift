@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Class for converting different properties of trips to different formats
+/// Class for converting different properties of trips to different formats
 class TripPropertyConverter {
     
     // Function for converting the full activity name of trips to a more readable, shorter version

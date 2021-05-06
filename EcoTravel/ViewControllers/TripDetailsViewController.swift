@@ -7,7 +7,7 @@
 
 import UIKit
 
-// ViewController for the trip details screen
+/// ViewController for the trip details screen
 class TripDetailsViewController: UIViewController {
 
     @IBOutlet weak var activityLabel: UILabel!
