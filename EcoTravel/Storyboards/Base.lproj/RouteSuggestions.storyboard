@@ -176,7 +176,7 @@
                                 </constraints>
                             </mapView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VJe-DD-6by">
-                                <rect key="frame" x="0.0" y="375" width="414" height="433"/>
+                                <rect key="frame" x="0.0" y="375" width="414" height="467"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" distribution="equalSpacing" spacing="24" translatesAutoresizingMaskIntoConstraints="NO" id="E2V-uU-q25">
                                         <rect key="frame" x="16" y="0.0" width="382" height="179"/>
@@ -221,7 +221,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="328" height="32"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mappin.and.ellipse" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WHI-n8-F88">
-                                                                <rect key="frame" x="0.0" y="-0.5" width="32" height="32.5"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
                                                                 <color key="tintColor" red="0.9882352941176471" green="0.46666666666666667" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="32" id="HqV-Cy-Kvi"/>
@@ -277,9 +277,11 @@
                     <connections>
                         <outlet property="destinationText" destination="PtX-W3-ugU" id="Cca-Ah-hRj"/>
                         <outlet property="destinationTime" destination="WyX-cI-7Yb" id="Kp2-zV-Ynd"/>
+                        <outlet property="itineraryStackView" destination="E2V-uU-q25" id="Nuq-Vf-Qhl"/>
                         <outlet property="legsStackView" destination="NiQ-hb-bUf" id="QWq-RP-0Yi"/>
                         <outlet property="mapView" destination="Ovu-0c-mkl" id="QL5-hm-ZBS"/>
                         <outlet property="originTime" destination="9hI-mz-8dI" id="zXX-fU-aaS"/>
+                        <outlet property="scrollView" destination="VJe-DD-6by" id="FGe-px-Svg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q6t-ux-Tq2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

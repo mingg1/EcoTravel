@@ -19,7 +19,6 @@ class ItineraryManager {
             result in
             switch result {
             case .success(let receivedResult):
-                print("%%%%%------------")
 
                 if let data = receivedResult.data?.plan?.jsonObject {
                     let serialized = try! JSONSerialization.data(withJSONObject: data, options: [])
