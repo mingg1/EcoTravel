@@ -16,6 +16,7 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
     @IBOutlet weak var monthlyButton: UIButton!
     @IBOutlet weak var weeklyButton: UIButton!
     @IBOutlet weak var dailyButton: UIButton!
+    @IBOutlet weak var pieChartContainer: UIView!
     
     var fetchedResultsController: NSFetchedResultsController<StatisticCoreData>?
     var pieChart = PieChartView()
@@ -261,8 +262,10 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
     
     func renderPieChart() {
         pieChart.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
-        pieChart.center = view.center
-        view.addSubview(pieChart)
+        //pieChart.frame = CGRect(x: 0, y: 0, width: pieChartContainer.frame.size.width, height: 250)
+        //pieChart.center = view.center
+        pieChartContainer.addSubview(pieChart)
+        //view.addSubview(pieChart)
     }
     
     func setPieChartData() {
@@ -294,7 +297,6 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
         weeklyButton.isSelected = false
         
     }
-    
     
     @IBAction func monthlyButtonTapped(_ sender: UIButton) {
         displayStatForLastMonth()
