@@ -261,11 +261,10 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
     }
     
     func renderPieChart() {
-        pieChart.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 250)
-        //pieChart.frame = CGRect(x: 0, y: 0, width: pieChartContainer.frame.size.width, height: 250)
-        //pieChart.center = view.center
+        pieChart.frame = CGRect(x: 0, y: 0, width: pieChartContainer.frame.size.width, height: 270)
+        pieChart.center = CGPoint(x: pieChartContainer.frame.size.width  / 2,
+                                  y: pieChartContainer.frame.size.height / 2)
         pieChartContainer.addSubview(pieChart)
-        //view.addSubview(pieChart)
     }
     
     func setPieChartData() {
