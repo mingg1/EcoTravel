@@ -31,34 +31,43 @@
                                     <segue destination="T3O-JN-eAT" kind="show" identifier="toTripsTableView" id="jag-Pv-ewQ"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="cbu-MJ-K5F">
-                                <rect key="frame" x="16" y="804" width="382" height="42"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cbu-MJ-K5F">
+                                <rect key="frame" x="16" y="807" width="382" height="39"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFF-NW-ZcY">
-                                        <rect key="frame" x="0.0" y="0.0" width="116.5" height="42"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brX-Li-MJb">
+                                        <rect key="frame" x="0.0" y="0.0" width="89.5" height="39"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <state key="normal" title="Daily"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Yearly"/>
                                         <connections>
-                                            <action selector="dailyButtonTapped:" destination="Zkc-ih-EaC" eventType="touchUpInside" id="T15-X3-SFX"/>
+                                            <action selector="yearlyButtonTapped:" destination="Zkc-ih-EaC" eventType="touchUpInside" id="JJn-0f-0pO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CTp-fv-IND">
+                                        <rect key="frame" x="97.5" y="0.0" width="89.5" height="39"/>
+                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Monthly"/>
+                                        <connections>
+                                            <action selector="monthlyButtonTapped:" destination="Zkc-ih-EaC" eventType="touchUpInside" id="Yys-Sq-bba"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fsv-mK-kEI">
-                                        <rect key="frame" x="132.5" y="0.0" width="117" height="42"/>
+                                        <rect key="frame" x="195" y="0.0" width="89.5" height="39"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <state key="normal" title="Weekly"/>
                                         <connections>
                                             <action selector="weeklyButtonTapped:" destination="Zkc-ih-EaC" eventType="touchUpInside" id="C8m-Y9-5mi"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CTp-fv-IND">
-                                        <rect key="frame" x="265.5" y="0.0" width="116.5" height="42"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFF-NW-ZcY">
+                                        <rect key="frame" x="292.5" y="0.0" width="89.5" height="39"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <state key="normal" title="Monthly"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Daily"/>
                                         <connections>
-                                            <action selector="monthlyButtonTapped:" destination="Zkc-ih-EaC" eventType="touchUpInside" id="Yys-Sq-bba"/>
+                                            <action selector="dailyButtonTapped:" destination="Zkc-ih-EaC" eventType="touchUpInside" id="T15-X3-SFX"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -92,6 +101,7 @@
                         <outlet property="dailyButton" destination="kFF-NW-ZcY" id="2hL-HX-DdJ"/>
                         <outlet property="monthlyButton" destination="CTp-fv-IND" id="SIP-sR-kBD"/>
                         <outlet property="weeklyButton" destination="fsv-mK-kEI" id="tob-NU-EQi"/>
+                        <outlet property="yearlyButton" destination="brX-Li-MJb" id="lCa-09-Rsg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hE-by-E6f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

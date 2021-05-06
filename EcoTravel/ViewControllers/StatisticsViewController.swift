@@ -12,10 +12,10 @@ import CoreData
 
 class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedResultsControllerDelegate {
     
-    @IBOutlet weak var dailyButton: UIButton!
-    @IBOutlet weak var weeklyButton: UIButton!
+    @IBOutlet weak var yearlyButton: UIButton!
     @IBOutlet weak var monthlyButton: UIButton!
-    @IBOutlet weak var pieChartContainerView: UIView!
+    @IBOutlet weak var weeklyButton: UIButton!
+    @IBOutlet weak var dailyButton: UIButton!
     
     var fetchedResultsController: NSFetchedResultsController<StatisticCoreData>?
     var pieChart = PieChartView()
@@ -40,7 +40,8 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
         
         fetchStatisticsFromCoreData()
         setupPieChart()
-        displayAllStat()
+        displayStatsForLastYear()
+        yearlyButton.isSelected = true
         // createSyntheticData()
     }
     
@@ -164,15 +165,31 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
         setPieChartDataEntries()
     }
     
-    func displayAllStat() {
+    func displayStatsForLastYear() {
         resetTotalDistances()
         
         guard let statistics = fetchedResultsController?.fetchedObjects else {
             fatalError("Statistics not found from fetched results controller")
         }
         
+        let dateYearAgo = Calendar.current.date(byAdding: .day, value: -365, to: Date())
+        let dateYearAgoMilliseconds = Int((dateYearAgo!.timeIntervalSince1970 * 1000.0).rounded())
+        
         for statistic in statistics {
-            calculateTotalDistance(statistic: statistic)
+            guard let activityDateString = statistic.dateString else {
+                fatalError("activity Date Error")
+                
+            }
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            let formattedActivityDate = formatter.date(from: activityDateString)
+            
+            let activityDateMilliseconds = Int((formattedActivityDate!.timeIntervalSince1970 * 1000.0).rounded())
+            
+            if(activityDateMilliseconds > dateYearAgoMilliseconds) {
+                calculateTotalDistance(statistic: statistic)
+            }
         }
         
         setPieChartDataEntries()
@@ -231,7 +248,7 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         print("controllerDidChangeContent")
-        displayAllStat()
+        displayStatsForLastYear()
         setPieChartData()
     }
     
@@ -263,16 +280,19 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
         displayStatForLastWeek()
         setPieChartData()
         weeklyButton.isSelected = true
-        dailyButton.isSelected = false
+        yearlyButton.isSelected = false
         monthlyButton.isSelected = false
+        dailyButton.isSelected = false
     }
     
     @IBAction func dailyButtonTapped(_ sender: UIButton) {
         displayDailyStat()
         setPieChartData()
         dailyButton.isSelected = true
-        weeklyButton.isSelected = false
+        yearlyButton.isSelected = false
         monthlyButton.isSelected = false
+        weeklyButton.isSelected = false
+        
     }
     
     
@@ -280,8 +300,18 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
         displayStatForLastMonth()
         setPieChartData()
         monthlyButton.isSelected = true
-        dailyButton.isSelected = false
+        yearlyButton.isSelected = false
         weeklyButton.isSelected = false
+        dailyButton.isSelected = false
+    }
+    
+    @IBAction func yearlyButtonTapped(_ sender: UIButton) {
+        displayStatsForLastYear()
+        setPieChartData()
+        yearlyButton.isSelected = true
+        monthlyButton.isSelected = false
+        weeklyButton.isSelected = false
+        dailyButton.isSelected = false
     }
     
     func createSyntheticData() {
