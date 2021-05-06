@@ -1,11 +1,12 @@
-// View controller for the route suggestion
-// Author: Minji Choi
-
 import UIKit
 import MapKit
 import Polyline
-import MOPRIMTmdSdk
 
+/**
+ * View controller for the route suggestion
+ * - author Minji Choi
+ * - since 2021-04-24
+ */
 class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
@@ -13,6 +14,8 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
     @IBOutlet weak var destinationField: UITextField!
     @IBOutlet weak var backBtn: UIButton!
     
+    let routeSuggestionsManager = RouteSuggestionsManager()
+    let uiManager = UIManager()
     let data = ItineraryManager()
     var selectedRow : Int?
     var selectedItinerary: Itineraries?
@@ -39,9 +42,9 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
         // execute GraphQL query with required variables
         data.fetchItinerary(originLat: Double(origin.latitude), originLon: Double(origin.longitude), destLat: Double(destination.latitude), destLon: Double(destination.longitude))
         
-        makeRoute(mapView, origin, destination)
-        makeAnnotation(mapView, origin, isOrigin: true, destTitle: destinationTitle)
-        makeAnnotation(mapView, destination, isOrigin: false, destTitle: destinationTitle)
+        routeSuggestionsManager.makeRoute(mapView, origin, destination)
+        routeSuggestionsManager.makeAnnotation(mapView, origin, isOrigin: true, destTitle: destinationTitle)
+        routeSuggestionsManager.makeAnnotation(mapView, destination, isOrigin: false, destTitle: destinationTitle)
     }
     
     // MARK: - Functions for setting UI elements
@@ -70,13 +73,12 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: - UITableViewDelegate
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerLabel = UILabel()
-        headerLabel.text = "\(data.itineraries.count)   Route option(s)"
+        headerLabel.text = "\(data.itineraries.count)  Route option(s)"
         headerLabel.backgroundColor = UIColor.white
         headerLabel.font = UIFont.boldSystemFont(ofSize: 22.0)
         return headerLabel
@@ -93,21 +95,17 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // represent each route options from GraphQL query results
         let itinerary = data.itineraries[indexPath.row]
-        let duration = durationText(duration: itinerary.duration)
-        let startTime = timeFormatter(time: itinerary.legs[0].startTime)
-        let arrivalTime = timeFormatter(time: itinerary.legs.last!.endTime)
+        let duration = routeSuggestionsManager.durationText(duration: itinerary.duration)
+        let startTime = routeSuggestionsManager.timeFormatter(time: itinerary.legs[0].startTime)
+        let arrivalTime = routeSuggestionsManager.timeFormatter(time: itinerary.legs.last!.endTime)
         let durationTime = startTime + " - " + arrivalTime
         
-        let stackView = UIStackView()
-        stackView.axis = NSLayoutConstraint.Axis.horizontal
-        stackView.distribution  = UIStackView.Distribution.equalSpacing
-        stackView.alignment = UIStackView.Alignment.center
-        stackView.spacing = 6
+        let stackView = uiManager.generateStackView(axis: .horizontal, distribution: .equalSpacing, alignment: .center, spacing: 6)
         
         for (index,leg) in itinerary.legs.enumerated(){
             let modeName = leg.mode
-            let modeImgName = setModeImgName(mode: modeName)
-            generateImageView(imgName: modeImgName, superView: stackView, mode: modeName,size: 20)
+            let modeImgName = routeSuggestionsManager.setModeImgName(mode: modeName)
+            uiManager.generateImageView(imgName: modeImgName, superView: stackView, mode: modeName,size: 20)
 
             if let routeTrip = leg.trip {
                 let routeShortName = routeTrip.routeShortName
@@ -119,8 +117,9 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
                 routeshortNameLabel.font = routeshortNameLabel.font.withSize(13.0)
                 stackView.addArrangedSubview(routeshortNameLabel)
             }
+            // make arrow mark between transport icons
             if (index != itinerary.legs.count - 1) {
-                generateImageView(imgName: "chevron.forward", superView: stackView, mode:"default",size: 20)
+                uiManager.generateImageView(imgName: "chevron.forward", superView: stackView, mode:"default",size: 20)
             }
         }
         let itineraryCell = tableView.dequeueReusableCell(withIdentifier: ItineraryTableCell.identifier, for: indexPath) as! ItineraryTableCell
@@ -154,9 +153,10 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
             } else if (indexPath.row == selectedRow!){
                 performSegue(withIdentifier: "showDetail", sender: self)
             }
-            generateRoute(self.mapView, legs: itinerary.legs)
+            routeSuggestionsManager.generateRoute(self.mapView, legs: itinerary.legs)
         }
     }
+    // send the necessary data to route detail view controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let detailVC = segue.destination as? RouteDetailViewController{
             detailVC.origin = origin
@@ -168,6 +168,7 @@ class RouteSuggestionsViewController: UIViewController, UITableViewDelegate, UIT
 }
 // MARK: - MKMapViewDelegate
 
+// set color and with of polylines
 extension RouteSuggestionsViewController: MKMapViewDelegate{
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
@@ -176,16 +177,14 @@ extension RouteSuggestionsViewController: MKMapViewDelegate{
         return renderer
     }
 }
-
 // MARK: - ItineraryManagerDelegate
 
-// When the route options are loaded, 
+// When the route options are loaded, the app reload tableview data.
 extension RouteSuggestionsViewController:ItineraryManagerDelegate{
     func didUpdateData(_ itineraryManager: ItineraryManager, data: [Itineraries]) {
         self.tableView.reloadData()
-        
+        // automatically select the first row in the tableview
         let firstIndexPath = IndexPath(row: 0, section: 0)
-        //self.tableView(at: firstIndexPath, animated: false, scrollPosition: .none)
         self.tableView(self.tableView, didSelectRowAt: firstIndexPath)
     }
 }

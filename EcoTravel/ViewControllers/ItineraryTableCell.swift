@@ -1,8 +1,12 @@
-// Customized table cell for route options
-// Author: Minji Choi
+/**
+ * Customized table cell for route options
+ * - author Minji Choi
+ * - since 2021-04-24
+ */
 
 import UIKit
 
+/// For displaying information of Itinerary options on the tableview from route suggestions view
 class ItineraryTableCell: UITableViewCell {
     
     static let identifier = "ItineraryCell"

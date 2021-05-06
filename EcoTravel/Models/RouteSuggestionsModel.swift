@@ -1,18 +1,23 @@
-// Struct for objets in itinerary plans
-// Author: Minji Choi
+/**
+ * Structs for parsing the graphQL query
+ * Author Minji Choi
+ * since 2021-04-24
+ */
 
 import Foundation
 
+/// Struct for parsing the graphQL query
 struct Plan: Codable {
     var itineraries: [Itineraries]
 }
 
+/// Struct for a route option, showing duration time and legs
 struct Itineraries: Codable {
-    var walkDistance: Float
     var duration: String
     var legs: [Legs]
 }
 
+/// Struct for parts of the itinerary
 struct Legs: Codable {
     var distance: Float
     var mode: String
@@ -24,6 +29,7 @@ struct Legs: Codable {
     var legGeometry: LegGeometry
 }
 
+/// Struct for coordinate, name, and stop data
 struct Place: Codable {
     var lat: Float
     var lon: Float
@@ -31,16 +37,19 @@ struct Place: Codable {
     var stop: Stop?
 }
 
+/// Struct for name and code of the stop
 struct Stop: Codable {
     var code: String?
     var name: String
 }
 
+/// Struct for the transportation's line number and destination place name
 struct Trips: Codable {
     var tripHeadsign: String
     var routeShortName: String
 }
 
+/// Struct for the polyline of the route
 struct LegGeometry: Codable {
     var length: Int
     var points: String
