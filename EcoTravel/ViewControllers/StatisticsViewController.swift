@@ -78,28 +78,17 @@ class StatisticsViewController: UIViewController, ChartViewDelegate, NSFetchedRe
             fatalError("Statistics not found from fetched results controller")
         }
         
-        //let dateToday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
         let dateToday = Date()
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd.MM.yyyy"
+        formatter.dateFormat = "yyyy-MM-dd"
         let dateTodayString = formatter.string(from: dateToday)
-        let dateTodayMidnightString = "\(dateTodayString) 00:00"
-        formatter.dateFormat = "dd.MM.yyyy HH:mm"
-        let dateTodayMignight = formatter.date(from: dateTodayMidnightString)
-        let dateTodayMignightInMilliseconds = Int((dateTodayMignight!.timeIntervalSince1970 * 1000.0).rounded())
-        
+
         for statistic in statistics {
             guard let activityDateString = statistic.dateString else {
                 fatalError("activity Date Error")
-                
             }
             
-            formatter.dateFormat = "yyyy-MM-dd"
-            let formattedActivityDate = formatter.date(from: activityDateString)
-            
-            let activityDateMilliseconds = Int((formattedActivityDate!.timeIntervalSince1970 * 1000.0).rounded())
-            
-            if(activityDateMilliseconds > dateTodayMignightInMilliseconds) {
+            if(activityDateString == dateTodayString) {
                 calculateTotalDistance(statistic: statistic)
             }
         }
