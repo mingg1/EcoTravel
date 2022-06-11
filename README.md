@@ -1,3 +1,5 @@
+(Forked from Gitlab, original repo: https://gitlab.com/Tuomas73/ecotravelapp)
+
 # EcoTravel iOS app
 Movement tracker and transportation and route finder. Users can find the most eco-friendly means of transportation and movement in addition to being able to track their movement with statistics.
 
